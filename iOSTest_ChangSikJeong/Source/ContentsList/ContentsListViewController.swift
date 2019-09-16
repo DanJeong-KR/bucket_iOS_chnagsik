@@ -26,6 +26,12 @@ final class ContentsListViewController: UIViewController {
     return v
   }()
   
+  internal var backColorFlag: Bool = false {
+    didSet {
+      self.view.backgroundColor = self.backColorFlag ? #colorLiteral(red: 0.601804018, green: 0.6007441878, blue: 0.6026645303, alpha: 0.5766210938) : .white
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -43,22 +49,31 @@ final class ContentsListViewController: UIViewController {
     switch sender.id {
     case ButtonID.sortingButton.id:
       print("정렬 버튼 클릭됨 ")
-      showUserActionVC()
+      showUserActionVC(withName: "정렬", withData: ["최신순", "베스트순", "인기순"])
     case ButtonID.spaceButton.id:
       print("공간 버튼 클릭 됨")
+      showUserActionVC(withName: "공간", withData: ["거실", "침실", "주방", "욕실"])
     case ButtonID.residenceButton.id:
       print("주거형태 버튼 클릭 됨")
+      showUserActionVC(withName: "주거형태", withData: ["아파트", "빌라&연립", "단독주택", "사무공간"])
     default:
       break
     }
   }
-
-}
-
-extension UIViewController {
-  func showUserActionVC() {
-    let vc = UserActionViewController()
-    vc.3 = .overCurrentContext
-    self.present(vc, animated: false)
+  
+  private func showUserActionVC(withName sortingName: String, withData sortingData: [String]) {
+    let vc = UserActionViewController(sortingName, sortingData)
+    vc.modalPresentationStyle = .overCurrentContext
+    self.backColorFlag = true
+    self.present(vc, animated: true)
   }
+
 }
+
+//extension UIViewController {
+//  func showUserActionVC(withName sortingName: String, withData sortingData: [String]) {
+//    let vc = UserActionViewController(sortingName, sortingData)
+//    vc.modalPresentationStyle = .overCurrentContext
+//    self.present(vc, animated: true)
+//  }
+//}

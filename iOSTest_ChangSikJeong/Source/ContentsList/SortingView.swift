@@ -14,7 +14,7 @@ class SortingView: UIView {
     let bt = UIButton(type: .custom)
     bt.setTitle("  정렬 ▾  ", for: .normal)
     bt.setTitleColor(.darkGray, for: .normal)
-    bt.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+    bt.titleLabel?.font = Global.bold
     bt.backgroundColor = #colorLiteral(red: 0.9607107043, green: 0.9608257413, blue: 0.9606716037, alpha: 1)
     bt.layer.cornerRadius = 5
     bt.id = ButtonID.sortingButton.id
@@ -29,7 +29,7 @@ class SortingView: UIView {
     bt.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     bt.backgroundColor = #colorLiteral(red: 0.9607107043, green: 0.9608257413, blue: 0.9606716037, alpha: 1)
     bt.layer.cornerRadius = 5
-    bt.id = ButtonID.sortingButton.id
+    bt.id = ButtonID.spaceButton.id
     self.addSubview(bt)
     return bt
   }()
@@ -41,7 +41,7 @@ class SortingView: UIView {
     bt.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     bt.backgroundColor = #colorLiteral(red: 0.9607107043, green: 0.9608257413, blue: 0.9606716037, alpha: 1)
     bt.layer.cornerRadius = 5
-    bt.id = ButtonID.sortingButton.id
+    bt.id = ButtonID.residenceButton.id
     self.addSubview(bt)
     return bt
   }()

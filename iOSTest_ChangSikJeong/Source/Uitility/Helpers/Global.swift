@@ -10,4 +10,9 @@ import UIKit
 
 internal struct Global {
   static let mainColor = #colorLiteral(red: 0.08574206382, green: 0.7608343959, blue: 0.9359433651, alpha: 1)
+  
+  
+  static let bold = UIFont.systemFont(ofSize: 18, weight: .bold)
+  static let regular = UIFont.systemFont(ofSize: 18, weight: .regular)
+  static let thin = UIFont.systemFont(ofSize: 16, weight: .thin)
 }
