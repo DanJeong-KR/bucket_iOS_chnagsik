@@ -9,7 +9,9 @@
 import UIKit
 
 enum ButtonID: Int {
-  case detailWeatherButton
+  case sortingButton
+  case spaceButton
+  case residenceButton
   
   var id: Int {
     return self.rawValue

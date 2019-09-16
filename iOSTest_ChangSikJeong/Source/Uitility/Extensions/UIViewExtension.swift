@@ -18,37 +18,37 @@ extension UIView {
     // @discardableResult : 이 아이를 사용하지 않아도 warning(노란색) 이 뜨지 않게 해주는 속성
     @discardableResult
     func top(equalTo anchor: NSLayoutYAxisAnchor? = nil, constant c: CGFloat = 0) -> Self {
-        let anchor = anchor ?? superview!.safeAreaLayoutGuide.topAnchor
+        let anchor = anchor ?? superview!.topAnchor
         topAnchor.constraint(equalTo: anchor, constant: c).isActive = true
         return self
     }
     @discardableResult
     func leading(equalTo anchor: NSLayoutXAxisAnchor? = nil, constant c: CGFloat = 0) -> Self {
-        let anchor = anchor ?? superview!.safeAreaLayoutGuide.leadingAnchor
+        let anchor = anchor ?? superview!.leadingAnchor
         leadingAnchor.constraint(equalTo: anchor, constant: c).isActive = true
         return self
     }
     @discardableResult
     func bottom(equalTo anchor: NSLayoutYAxisAnchor? = nil, constant c: CGFloat = 0) -> Self {
-        let anchor = anchor ?? superview!.safeAreaLayoutGuide.bottomAnchor
+        let anchor = anchor ?? superview!.bottomAnchor
         bottomAnchor.constraint(equalTo: anchor, constant: c).isActive = true
         return self
     }
     @discardableResult
     func trailing(equalTo anchor: NSLayoutXAxisAnchor? = nil, constant c: CGFloat = 0) -> Self {
-        let anchor = anchor ?? superview!.safeAreaLayoutGuide.trailingAnchor
+        let anchor = anchor ?? superview!.trailingAnchor
         trailingAnchor.constraint(equalTo: anchor, constant: c).isActive = true
         return self
     }
     @discardableResult
     func centerY(equalTo anchor: NSLayoutYAxisAnchor? = nil, constant c: CGFloat = 0) -> Self {
-        let anchor = anchor ?? superview!.safeAreaLayoutGuide.centerYAnchor
+        let anchor = anchor ?? superview!.centerYAnchor
         centerYAnchor.constraint(equalTo: anchor, constant: c).isActive = true
         return self
     }
     @discardableResult
     func centerX(equalTo anchor: NSLayoutXAxisAnchor? = nil, constant c: CGFloat = 0) -> Self {
-        let anchor = anchor ?? superview!.safeAreaLayoutGuide.centerXAnchor
+        let anchor = anchor ?? superview!.centerXAnchor
         centerXAnchor.constraint(equalTo: anchor, constant: c).isActive = true
         return self
     }
@@ -56,7 +56,7 @@ extension UIView {
   func height(equalTo anchor: NSLayoutDimension? = nil, constant c: CGFloat = 0, multiplier m: CGFloat = 1) -> Self {
     if let superview = superview {
       if c == 0 {
-        let anchor = anchor ?? superview.safeAreaLayoutGuide.heightAnchor
+        let anchor = anchor ?? superview.heightAnchor
         heightAnchor.constraint(equalTo: anchor, multiplier: m, constant: c).isActive = true
       } else {
         // FIXME: - contant 에 값을 주면 전체 높이에서 계산되는 문제
@@ -73,7 +73,7 @@ extension UIView {
   func width(equalTo anchor: NSLayoutDimension? = nil, constant c: CGFloat = 0, multiplier m: CGFloat = 1) -> Self {
     if let superview = superview {
       if c == 0 {
-        let anchor = anchor ?? superview.safeAreaLayoutGuide.heightAnchor
+        let anchor = anchor ?? superview.heightAnchor
         heightAnchor.constraint(equalTo: anchor, multiplier: m, constant: c).isActive = true
       } else {
         heightAnchor.constraint(equalToConstant: c).isActive = true
