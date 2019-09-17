@@ -82,13 +82,13 @@ final class ContentListViewController: UIViewController {
       case .success(let contents):
         DispatchQueue.main.async {
           if param {
+            // load more 의 경우 기존의 데이터 뒤에 추가하기.
             self.contents += contents
           }else {
+            // load more 가 아닐 때는 기존의 데이터 갱신
             self.contents = []
             self.contents = contents
           }
-          // FIXME: count 가 정상적으로 안나오네. 정렬 잘 안되는 듯
-          print("content count is : ",self.contents.count)
           self.contentTableView.reloadData()
         }
       case .failure(let error):
@@ -246,12 +246,13 @@ final class ContentListViewController: UIViewController {
       newImageView.center = CGPoint(x: newX, y: newY)
       sender.setTranslation(.zero, in: newImageView)
       
+      // 피타고라스 정리를 활용해서 alpha 구할 것
       let a = newX - beforeX!
       let b = newY - beforeY!
       let pita = (a * a + b * b).squareRoot()
       
-      if pita < 102 {
-        self.blackColorView.alpha = 1 - (pita / 340)
+      if pita < 210 {
+        self.blackColorView.alpha = 1 - (pita / 700)
       } else {
         self.blackColorView.alpha = 0.7
       }
@@ -314,21 +315,14 @@ extension ContentListViewController: UITableViewDelegate {
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     let offsetY = scrollView.contentOffset.y
     let contentHeight = scrollView.contentSize.height
-    //    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
     if offsetY > contentHeight - scrollView.frame.height {
       
-      print("point")
-      // FIXME: - 2번씩 데이터 추가되는 거 고치기
       isScrollIsEnd = true
       if isScrollIsEnd {
         isScrollIsEnd = false
         networkService(forScroll: true)
       }
     }
-  }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
   }
 }
 
