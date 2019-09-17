@@ -28,10 +28,12 @@ final class ContentListViewController: UIViewController {
   
   private lazy var contentTableView: UITableView = {
     let tv = UITableView(frame: .zero)
-    tv.backgroundColor = .yellow
     tv.dataSource = self
     tv.delegate = self
     tv.register(cell: ContentTableViewCell.self)
+    tv.estimatedRowHeight = 200
+    tv.rowHeight = UITableView.automaticDimension
+    tv.separatorStyle = .none
     self.view.addSubview(tv)
     return tv
   }()
@@ -98,11 +100,12 @@ final class ContentListViewController: UIViewController {
 
 extension ContentListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return contents.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeue(ContentTableViewCell.self)
+    cell.setContents(with: contents[indexPath.row])
     return cell
   }
 }
