@@ -13,16 +13,17 @@ final class BucketService: BucketServiceType {
   private let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
   
   // 테스트 성공 commit
-  func fetchBucketData(order: String?, space: String?, residence: String?, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
+  func fetchBucketData(order: String?, space: String?, residence: String?, page: String, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
     
     var urlComponent = URLComponents(string: baseURL)
-    urlComponent?.path = "/bucketplace-coding-test/cards/page_1.json"
+    urlComponent?.path = "/bucketplace-coding-test/cards/page_" + page + ".json"
     urlComponent?.queryItems = []
     
     // 매개변수에 따라 동적으로 url을 재작성하도록
     for (a, b) in zip(["order", "space", "residence"], [order, space, residence]) {
       if let nilTest = b {
-        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: nilTest))
+        
+        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: DataManager.shared.convertText(nilTest)))
       }
     }
     
@@ -50,6 +51,7 @@ final class BucketService: BucketServiceType {
       // JSON Parsing
       if let bucket = try? JSONDecoder().decode([Bucket].self, from: data) {
         logger("Networking is Success")
+        logger("재 정렬된 데이터가 변하지 않아서 url을 log로 남깁니다. \(url)")
         completionHandler(.success(bucket))
       } else {
         completionHandler(.failure(.invalidFormat))

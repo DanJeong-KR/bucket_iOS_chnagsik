@@ -36,17 +36,28 @@ final class DataManager {
     }
   }
   
-//  func reloadFilterData() -> [String] {
-//    let dicData = DataManager.shared.filterData
-//    var array: [String] = []
-//    for value in dicData.values {
-//      if let data = value {
-//        array.append(data)
-//      }
-//    }
-//    filterDataArr = array.sorted()
-//
-//    return filterDataArr
-//  }
+  func convertText(_ text: String) -> String {
+    switch text {
+    case "최신순":
+      return "recent"
+    case "베스트순":
+      return "best"
+    case "인기순":
+      return "popular"
+    case "거실", "아파트":
+      return "1"
+    case "침실", "빌라&연립":
+      return "2"
+    case "주방", "단독주택":
+      return "3"
+    case "욕실", "사무공간":
+      return "4"
+    default:
+      break
+    }
+    logger("Can't convert Text")
+    return ""
+  }
+  
   
 }

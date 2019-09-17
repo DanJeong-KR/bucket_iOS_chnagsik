@@ -14,6 +14,7 @@ protocol BucketServiceType {
     order: String?,
     space: String?,
     residence: String?,
+    page: String,
     completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void
   )
   

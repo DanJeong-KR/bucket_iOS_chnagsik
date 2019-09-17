@@ -72,25 +72,26 @@ final class ContentListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     noti()
-    networkService(isFirst: true)
+    networkService(forScroll: false)
     print(contents.count)
     makeConstrains()
   }
   
   //MARK: - Network
-  private func networkService(isFirst param: Bool) {
-    DataManager.shared.service.fetchBucketData(order: nil, space: nil, residence: nil) { result in
-      
-      if !param {
-        self.isScrollIsEnd = true
-      }
+  private func networkService(forScroll param: Bool) {
+    let filterData = DataManager.shared.filterData
+    print("network Filter Data : ",filterData)
+    DataManager.shared.service.fetchBucketData(order: filterData["정렬"] ?? nil, space: filterData["공간"] ?? nil, residence: filterData["주거형태"] ?? nil, page: "1") { result in
       
       switch result {
       case .success(let contents):
-        if param {
-          self.contents = contents
-        }else {
-          self.contents += contents
+        DispatchQueue.main.async {
+          if !param {
+            self.contents = contents
+            self.contentTableView.reloadData()
+          }else {
+            self.contents += contents
+          }
           self.contentTableView.reloadData()
         }
       case .failure(let error):
@@ -127,27 +128,15 @@ final class ContentListViewController: UIViewController {
   }
   
   @objc private func notification(_ sender: Notification) {
+    // 필터 걸면 나타나고, 취소하면 없어지게
     filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
     
-    print("filterData :",DataManager.shared.filterData)
+    // 필터에 따라서 다른 데이터 받고 테이블 뷰에 적용하기
+    networkService(forScroll: false)
     
-//    if let _ = DataManager.shared.filterData["정렬"] {
-//      sortingView.orderButton.isSelected = true
-//    } else {
-//      sortingView.orderButton.isSelected = false
-//    }
-//    if let _ = DataManager.shared.filterData["공간"] {
-//      sortingView.spaceButton.isSelected = true
-//    } else {
-//      sortingView.spaceButton.isSelected = false
-//    }
-//    if let _ = DataManager.shared.filterData["주거형태"] {
-//      sortingView.residenceButton.isSelected = true
-//    } else {
-//      sortingView.residenceButton.isSelected = false
-//    }
+    let filterData = DataManager.shared.filterData
+    
     //FIXME: - 왜 전부 true 되는지 모르겠네 버근가
-//    let filterData = DataManager.shared.filterData
 //    sortingView.orderButton.isSelected = filterData["정렬"] != nil ? true : false
 //    sortingView.spaceButton.isSelected = filterData["공간"] != nil ? true : false
 //    sortingView.residenceButton.isSelected = DataManager.shared.filterData["주거형태"] == nil ? false : true
@@ -206,14 +195,14 @@ extension ContentListViewController: UITableViewDelegate {
     
     let offsetY = scrollView.contentOffset.y
     let contentHeight = scrollView.contentSize.height
-    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
+//    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
     if offsetY > contentHeight - scrollView.frame.height {
       
+      // FIXME: - 2번씩 데이터 추가되는 거 고치기
       isScrollIsEnd = true
       if isScrollIsEnd {
         isScrollIsEnd = false
-        print("infinite check")
-        networkService(isFirst: false)
+        networkService(forScroll: true)
       }
     }
     
