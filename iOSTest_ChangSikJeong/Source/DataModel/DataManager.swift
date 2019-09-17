@@ -23,19 +23,30 @@ final class DataManager {
   // MARK: - filter Data 부분
   var filterData: [String: String?] = ["정렬" : nil, "공간" : nil, "주거형태" : nil]
   
-  var filterDataArr: [String] = []
-  
-  func reloadFilterData() -> [String] {
-    let dicData = DataManager.shared.filterData
-    var array: [String] = []
-    for value in dicData.values {
-      if let data = value {
-        array.append(data)
+  var filterDataArr: [String] {
+    get {
+      let dicData = DataManager.shared.filterData
+      var array: [String] = []
+      for value in dicData.values {
+        if let data = value {
+          array.append(data)
+        }
       }
+      return array.sorted()
     }
-    filterDataArr = array.sorted()
-    
-    return filterDataArr
   }
+  
+//  func reloadFilterData() -> [String] {
+//    let dicData = DataManager.shared.filterData
+//    var array: [String] = []
+//    for value in dicData.values {
+//      if let data = value {
+//        array.append(data)
+//      }
+//    }
+//    filterDataArr = array.sorted()
+//
+//    return filterDataArr
+//  }
   
 }

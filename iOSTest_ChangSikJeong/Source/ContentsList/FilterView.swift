@@ -61,17 +61,19 @@ class FilterView: UIView {
     
   }
   
+  // FIXME: - refac
   @objc private func notification(_ senrder: Notification) {
     
-    switch senrder.name {
-    case NotificationID.UserActionDidTap:
-      filterData = DataManager.shared.reloadFilterData()
-      
-    case NotificationID.FilterCancelButtonDidTap:
-      filterData = DataManager.shared.reloadFilterData()
-    default:
-      break
-    }
+    filterData = DataManager.shared.filterDataArr
+//    switch senrder.name {
+//    case NotificationID.UserActionDidTap:
+//      filterData = DataManager.shared.filterDataArr
+//
+//    case NotificationID.FilterCancelButtonDidTap:
+//      filterData = DataManager.shared.filterDataArr
+//    default:
+//      break
+//    }
   }
 }
 

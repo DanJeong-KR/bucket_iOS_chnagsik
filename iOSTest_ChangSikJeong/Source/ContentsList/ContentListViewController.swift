@@ -11,7 +11,7 @@ import UIKit
 final class ContentListViewController: UIViewController {
   
   // MARK: - Properties
-  private lazy var sortingView: UIView = {
+  private lazy var sortingView: SortingView = {
     let v = SortingView(frame: .zero)
     v.orderButton.addTarget(self, action: #selector(buttonsDidTap(_:)), for: .touchUpInside)
     v.spaceButton.addTarget(self, action: #selector(buttonsDidTap(_:)), for: .touchUpInside)
@@ -106,18 +106,38 @@ final class ContentListViewController: UIViewController {
   
   deinit {
     DataManager.shared.noti.removeObserver(self, name: NotificationID.UserActionDidTap, object: nil)
+    DataManager.shared.noti.removeObserver(self, name: NotificationID.FilterCancelButtonDidTap, object: nil)
   }
   
   @objc private func notification(_ sender: Notification) {
-    switch sender.name {
-    case NotificationID.UserActionDidTap:
-      filterHeight?.constant = 50
-    case NotificationID.FilterCancelButtonDidTap:
-      print(DataManager.shared.filterDataArr)
-//      filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
-    default:
-      break
-    }
+    filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
+    
+    print("filterData :",DataManager.shared.filterData)
+    
+//    if let _ = DataManager.shared.filterData["정렬"] {
+//      sortingView.orderButton.isSelected = true
+//    } else {
+//      sortingView.orderButton.isSelected = false
+//    }
+//    if let _ = DataManager.shared.filterData["공간"] {
+//      sortingView.spaceButton.isSelected = true
+//    } else {
+//      sortingView.spaceButton.isSelected = false
+//    }
+//    if let _ = DataManager.shared.filterData["주거형태"] {
+//      sortingView.residenceButton.isSelected = true
+//    } else {
+//      sortingView.residenceButton.isSelected = false
+//    }
+    //FIXME: - 왜 전부 true 되는지 모르겠네 버근가
+//    let filterData = DataManager.shared.filterData
+//    sortingView.orderButton.isSelected = filterData["정렬"] != nil ? true : false
+//    sortingView.spaceButton.isSelected = filterData["공간"] != nil ? true : false
+//    sortingView.residenceButton.isSelected = DataManager.shared.filterData["주거형태"] == nil ? false : true
+    
+//    print("order Button : ", sortingView.orderButton.isSelected)
+//    print("space Button : ", sortingView.spaceButton.isSelected)
+//    print("resi Button : ", sortingView.residenceButton.isSelected)
   }
   
   //MARK: - Action Methods
@@ -128,7 +148,6 @@ final class ContentListViewController: UIViewController {
     switch sender.id {
     case ButtonID.sortingButton.id:
       print("정렬 버튼 클릭됨 ")
-      
       showUserActionVC(withName: "정렬",
                        withData: DataManager.shared.sortingData["정렬"] ?? ["Dic Error"])
     case ButtonID.spaceButton.id:
@@ -166,6 +185,11 @@ extension ContentListViewController: UITableViewDataSource {
 }
 
 extension ContentListViewController: UITableViewDelegate {
-  
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    
+    let test = (scrollView.contentOffset.y % 7500)
+    print("scroll y : ",scrollView.contentOffset, " test : ", test)
+    
+  }
 }
 

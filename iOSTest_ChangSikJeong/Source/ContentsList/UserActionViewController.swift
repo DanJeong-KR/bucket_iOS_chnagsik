@@ -10,20 +10,11 @@ import UIKit
 
 class UserActionViewController: UIViewController {
   
+  
   internal var sortingName = ""
   internal var sortingData: [String] = []
   
-  init(_ sortingName: String, _ sortingData: [String]) {
-    super.init(nibName: nil, bundle: nil)
-    self.sortingName = sortingName
-    self.sortingData = sortingData
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    fatalError(ErrorLog.coderInit)
-  }
-  
+  // MARK: - Properties
   private lazy var clearView: UIView = {
     let v = UIView(frame: .zero)
     v.backgroundColor = .clear
@@ -67,7 +58,19 @@ class UserActionViewController: UIViewController {
     return tv
   }()
   
+  // MARK: - Initializers
+  init(_ sortingName: String, _ sortingData: [String]) {
+    super.init(nibName: nil, bundle: nil)
+    self.sortingName = sortingName
+    self.sortingData = sortingData
+  }
   
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    fatalError(ErrorLog.coderInit)
+  }
+  
+  //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -77,6 +80,7 @@ class UserActionViewController: UIViewController {
     view.backgroundColor = .clear
   }
   
+  // MARK: - Layout Methods
   private func makeConstraints() {
     clearView.layout.top().leading().trailing().height(constant: 300)
     
@@ -87,6 +91,7 @@ class UserActionViewController: UIViewController {
     actionTableView.layout.bottom().leading().trailing().top(equalTo: titleView.bottomAnchor)
   }
   
+  // MARK: - Action Methods
   @objc private func initButtonDIdTap(_ sender: Any) {
     // 초기화 버튼 로직
     if let _ = DataManager.shared.filterData[sortingName] {
