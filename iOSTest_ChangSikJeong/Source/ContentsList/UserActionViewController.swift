@@ -54,7 +54,6 @@ class UserActionViewController: UIViewController {
   
   private lazy var actionTableView: UITableView = {
     let tv = UITableView(frame: .zero)
-    tv.backgroundColor = .yellow
     tv.tableFooterView = UIView()
     tv.dataSource = self
     tv.delegate = self

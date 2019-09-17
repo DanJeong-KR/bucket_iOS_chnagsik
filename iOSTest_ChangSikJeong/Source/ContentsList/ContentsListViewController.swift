@@ -26,6 +26,16 @@ final class ContentsListViewController: UIViewController {
     return v
   }()
   
+  private lazy var contentTableView: UITableView = {
+    let tv = UITableView(frame: .zero)
+    tv.backgroundColor = .yellow
+    tv.dataSource = self
+    tv.delegate = self
+    tv.register(cell: ContentTableViewCell.self)
+    self.view.addSubview(tv)
+    return tv
+  }()
+  
   internal var backColorFlag: Bool = false {
     didSet {
       self.view.backgroundColor = self.backColorFlag ? #colorLiteral(red: 0.601804018, green: 0.6007441878, blue: 0.6026645303, alpha: 0.5766210938) : .white
@@ -35,13 +45,39 @@ final class ContentsListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    fetchBucketData(order: nil, space: nil, residence: nil)
+    fetchBucketData(order: "recent", space: "1", residence: nil)
+    fetchBucketData(order: nil, space: "2", residence: "2")
+    
     makeConstrains()
+  }
+  
+  func fetchBucketData(order: String?, space: String?, residence: String?) {
+    
+    let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
+    
+    var urlComponent = URLComponents(string: baseURL)
+    urlComponent?.path = "/bucketplace-coding-test/cards/page_1.json"
+    urlComponent?.queryItems = []
+    for (a, b) in zip(["order", "space", "residence"], [order, space, residence]) {
+      if let nilTest = b {
+        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: nilTest))
+      }
+    }
+    
+    //urlComponent?.queryItems = [URLQueryItem(name: "test", value: "testt")]
+    
+    
+    print(urlComponent!.url!)
   }
   
   private func makeConstrains() {
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
     sortingView.layout.top(equalTo: view.topAnchor, constant: statusBarHeight).leading().trailing().height(constant: 50)
+    
     filterView.layout.top(equalTo: sortingView.bottomAnchor).leading().trailing().height(equalTo: sortingView.heightAnchor)
+    
+    contentTableView.layout.top(equalTo: filterView.bottomAnchor).leading().trailing().bottom()
   }
   
   @objc private func buttonsDidTap(_ sender: UIButton) {
@@ -49,13 +85,16 @@ final class ContentsListViewController: UIViewController {
     switch sender.id {
     case ButtonID.sortingButton.id:
       print("정렬 버튼 클릭됨 ")
-      showUserActionVC(withName: "정렬", withData: ["최신순", "베스트순", "인기순"])
+      showUserActionVC(withName: "정렬",
+                       withData: DataManager.shared.sortingData["정렬"] ?? ["Dic Error"])
     case ButtonID.spaceButton.id:
       print("공간 버튼 클릭 됨")
-      showUserActionVC(withName: "공간", withData: ["거실", "침실", "주방", "욕실"])
+      showUserActionVC(withName: "공간",
+                       withData: DataManager.shared.sortingData["공간"] ?? ["Dic Error"])
     case ButtonID.residenceButton.id:
       print("주거형태 버튼 클릭 됨")
-      showUserActionVC(withName: "주거형태", withData: ["아파트", "빌라&연립", "단독주택", "사무공간"])
+      showUserActionVC(withName: "주거형태",
+                       withData: DataManager.shared.sortingData["주거형태"] ?? ["Dic Error"])
     default:
       break
     }
@@ -70,10 +109,17 @@ final class ContentsListViewController: UIViewController {
 
 }
 
-//extension UIViewController {
-//  func showUserActionVC(withName sortingName: String, withData sortingData: [String]) {
-//    let vc = UserActionViewController(sortingName, sortingData)
-//    vc.modalPresentationStyle = .overCurrentContext
-//    self.present(vc, animated: true)
-//  }
-//}
+extension ContentsListViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 0
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    return UITableViewCell()
+  }
+}
+
+extension ContentsListViewController: UITableViewDelegate {
+  
+}
+

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum ServiceError: Error {
   case clientError
   case invalidStatusCode
   case noData

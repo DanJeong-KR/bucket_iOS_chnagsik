@@ -18,11 +18,16 @@
 		8EF8F510232F65C600E8C008 /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F50F232F65C600E8C008 /* AlertExtensions.swift */; };
 		8EF8F512232F669300E8C008 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F511232F669300E8C008 /* ErrorLog.swift */; };
 		8EF8F514232F669800E8C008 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F513232F669800E8C008 /* Identity.swift */; };
-		8EF8F516232F66CD00E8C008 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F515232F66CD00E8C008 /* NetworkError.swift */; };
+		8EF8F516232F66CD00E8C008 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F515232F66CD00E8C008 /* ServiceError.swift */; };
 		8EF8F518232F6FDE00E8C008 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF8F517232F6FDE00E8C008 /* Default-568h@2x.png */; };
 		8EF8F51B232F772C00E8C008 /* SortingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F51A232F772C00E8C008 /* SortingView.swift */; };
 		8EF8F51D232F86EF00E8C008 /* UserActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */; };
 		8EF8F51F232F88AE00E8C008 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F51E232F88AE00E8C008 /* Global.swift */; };
+		8EF8F5342330741000E8C008 /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F5332330741000E8C008 /* ContentTableViewCell.swift */; };
+		8EF8F536233074CB00E8C008 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F535233074CB00E8C008 /* DataManager.swift */; };
+		8EF8F538233076FC00E8C008 /* BucketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F537233076FC00E8C008 /* BucketService.swift */; };
+		8EF8F53A2330772100E8C008 /* BucketServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F5392330772100E8C008 /* BucketServiceType.swift */; };
+		8EF8F53C2330796B00E8C008 /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F53B2330796B00E8C008 /* Bucket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,11 +44,16 @@
 		8EF8F50F232F65C600E8C008 /* AlertExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
 		8EF8F511232F669300E8C008 /* ErrorLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
 		8EF8F513232F669800E8C008 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
-		8EF8F515232F66CD00E8C008 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		8EF8F515232F66CD00E8C008 /* ServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		8EF8F517232F6FDE00E8C008 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8EF8F51A232F772C00E8C008 /* SortingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingView.swift; sourceTree = "<group>"; };
 		8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionViewController.swift; sourceTree = "<group>"; };
 		8EF8F51E232F88AE00E8C008 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		8EF8F5332330741000E8C008 /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
+		8EF8F535233074CB00E8C008 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		8EF8F537233076FC00E8C008 /* BucketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketService.swift; sourceTree = "<group>"; };
+		8EF8F5392330772100E8C008 /* BucketServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketServiceType.swift; sourceTree = "<group>"; };
+		8EF8F53B2330796B00E8C008 /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				8EF8F4EC232F63D000E8C008 /* AppDelegate.swift */,
+				8EF8F535233074CB00E8C008 /* DataManager.swift */,
+				8EF8F53B2330796B00E8C008 /* Bucket.swift */,
 				8EF8F519232F770C00E8C008 /* ContentsList */,
 				8EF8F503232F650B00E8C008 /* Uitility */,
 				8EF8F504232F651D00E8C008 /* Network */,
@@ -124,7 +136,9 @@
 		8EF8F504232F651D00E8C008 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8EF8F515232F66CD00E8C008 /* NetworkError.swift */,
+				8EF8F515232F66CD00E8C008 /* ServiceError.swift */,
+				8EF8F537233076FC00E8C008 /* BucketService.swift */,
+				8EF8F5392330772100E8C008 /* BucketServiceType.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -156,6 +170,7 @@
 			children = (
 				8EF8F4FE232F64B500E8C008 /* ContentsListViewController.swift */,
 				8EF8F51A232F772C00E8C008 /* SortingView.swift */,
+				8EF8F5332330741000E8C008 /* ContentTableViewCell.swift */,
 				8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */,
 			);
 			path = ContentsList;
@@ -232,7 +247,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EF8F516232F66CD00E8C008 /* NetworkError.swift in Sources */,
+				8EF8F516232F66CD00E8C008 /* ServiceError.swift in Sources */,
+				8EF8F536233074CB00E8C008 /* DataManager.swift in Sources */,
+				8EF8F538233076FC00E8C008 /* BucketService.swift in Sources */,
 				8EF8F51D232F86EF00E8C008 /* UserActionViewController.swift in Sources */,
 				8EF8F50C232F65B000E8C008 /* TableViewCollectionViewExtensions.swift in Sources */,
 				8EF8F514232F669800E8C008 /* Identity.swift in Sources */,
@@ -243,6 +260,9 @@
 				8EF8F506232F657500E8C008 /* Logger.swift in Sources */,
 				8EF8F512232F669300E8C008 /* ErrorLog.swift in Sources */,
 				8EF8F508232F658300E8C008 /* UIViewExtension.swift in Sources */,
+				8EF8F5342330741000E8C008 /* ContentTableViewCell.swift in Sources */,
+				8EF8F53A2330772100E8C008 /* BucketServiceType.swift in Sources */,
+				8EF8F53C2330796B00E8C008 /* Bucket.swift in Sources */,
 				8EF8F51B232F772C00E8C008 /* SortingView.swift in Sources */,
 				8EF8F4ED232F63D000E8C008 /* AppDelegate.swift in Sources */,
 			);
