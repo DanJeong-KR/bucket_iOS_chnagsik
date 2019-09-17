@@ -60,11 +60,7 @@ final class ContentListViewController: UIViewController {
     }
   }
   
-  private var contents: [Bucket] = [] {
-    didSet {
-      self.contentTableView.reloadData()
-    }
-  }
+  private var contents: [Bucket] = []
   
   private var isScrollIsEnd: Bool = false
   
@@ -73,7 +69,6 @@ final class ContentListViewController: UIViewController {
     super.viewDidLoad()
     noti()
     networkService(forScroll: false)
-    print(contents.count)
     makeConstrains()
   }
   
@@ -86,12 +81,14 @@ final class ContentListViewController: UIViewController {
       switch result {
       case .success(let contents):
         DispatchQueue.main.async {
-          if !param {
-            self.contents = contents
-            self.contentTableView.reloadData()
-          }else {
+          if param {
             self.contents += contents
+          }else {
+            self.contents = []
+            self.contents = contents
           }
+          // FIXME: count 가 정상적으로 안나오네. 정렬 잘 안되는 듯
+          print("content count is : ",self.contents.count)
           self.contentTableView.reloadData()
         }
       case .failure(let error):
@@ -130,6 +127,9 @@ final class ContentListViewController: UIViewController {
   @objc private func notification(_ sender: Notification) {
     // 필터 걸면 나타나고, 취소하면 없어지게
     filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
+    
+    // 필터 걸면 스크롤 가장 위로 이동시키기.
+    contentTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     
     // 필터에 따라서 다른 데이터 받고 테이블 뷰에 적용하기
     networkService(forScroll: false)
@@ -191,13 +191,30 @@ extension ContentListViewController: UITableViewDataSource {
 }
 
 extension ContentListViewController: UITableViewDelegate {
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
+//  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//
+//    let offsetY = scrollView.contentOffset.y
+//    let contentHeight = scrollView.contentSize.height
+////    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
+//    if offsetY > contentHeight - scrollView.frame.height {
+//
+//      // FIXME: - 2번씩 데이터 추가되는 거 고치기
+//      isScrollIsEnd = true
+//      if isScrollIsEnd {
+//        isScrollIsEnd = false
+//        networkService(forScroll: true)
+//      }
+//    }
+//
+//  }
+  
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     let offsetY = scrollView.contentOffset.y
     let contentHeight = scrollView.contentSize.height
-//    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
+    //    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
     if offsetY > contentHeight - scrollView.frame.height {
       
+      print("point")
       // FIXME: - 2번씩 데이터 추가되는 거 고치기
       isScrollIsEnd = true
       if isScrollIsEnd {
@@ -205,7 +222,6 @@ extension ContentListViewController: UITableViewDelegate {
         networkService(forScroll: true)
       }
     }
-    
   }
   
   
