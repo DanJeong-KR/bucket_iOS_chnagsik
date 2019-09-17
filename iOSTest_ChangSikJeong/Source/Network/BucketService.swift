@@ -12,7 +12,7 @@ final class BucketService: BucketServiceType {
   
   private let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
   
-  // 테스트 성공
+  // 테스트 성공 commit
   func fetchBucketData(order: String?, space: String?, residence: String?, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
     
     var urlComponent = URLComponents(string: baseURL)
@@ -49,6 +49,7 @@ final class BucketService: BucketServiceType {
       
       // JSON Parsing
       if let bucket = try? JSONDecoder().decode([Bucket].self, from: data) {
+        logger("Networking is Success")
         completionHandler(.success(bucket))
       } else {
         completionHandler(.failure(.invalidFormat))

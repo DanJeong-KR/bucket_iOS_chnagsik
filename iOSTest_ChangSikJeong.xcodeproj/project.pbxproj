@@ -10,7 +10,7 @@
 		8EF8F4ED232F63D000E8C008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F4EC232F63D000E8C008 /* AppDelegate.swift */; };
 		8EF8F4F4232F63D100E8C008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EF8F4F3232F63D100E8C008 /* Assets.xcassets */; };
 		8EF8F4F7232F63D100E8C008 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EF8F4F5232F63D100E8C008 /* LaunchScreen.storyboard */; };
-		8EF8F4FF232F64B500E8C008 /* ContentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F4FE232F64B500E8C008 /* ContentsListViewController.swift */; };
+		8EF8F4FF232F64B500E8C008 /* ContentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */; };
 		8EF8F506232F657500E8C008 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F505232F657500E8C008 /* Logger.swift */; };
 		8EF8F508232F658300E8C008 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F507232F658300E8C008 /* UIViewExtension.swift */; };
 		8EF8F50C232F65B000E8C008 /* TableViewCollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F50B232F65B000E8C008 /* TableViewCollectionViewExtensions.swift */; };
@@ -23,11 +23,11 @@
 		8EF8F51B232F772C00E8C008 /* SortingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F51A232F772C00E8C008 /* SortingView.swift */; };
 		8EF8F51D232F86EF00E8C008 /* UserActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */; };
 		8EF8F51F232F88AE00E8C008 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F51E232F88AE00E8C008 /* Global.swift */; };
-		8EF8F5342330741000E8C008 /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F5332330741000E8C008 /* ContentTableViewCell.swift */; };
 		8EF8F536233074CB00E8C008 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F535233074CB00E8C008 /* DataManager.swift */; };
 		8EF8F538233076FC00E8C008 /* BucketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F537233076FC00E8C008 /* BucketService.swift */; };
 		8EF8F53A2330772100E8C008 /* BucketServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F5392330772100E8C008 /* BucketServiceType.swift */; };
 		8EF8F53C2330796B00E8C008 /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F53B2330796B00E8C008 /* Bucket.swift */; };
+		8EF8F54323309E8C00E8C008 /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F54123309E8C00E8C008 /* ContentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,7 @@
 		8EF8F4F3232F63D100E8C008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8EF8F4F6232F63D100E8C008 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EF8F4F8232F63D100E8C008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EF8F4FE232F64B500E8C008 /* ContentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsListViewController.swift; sourceTree = "<group>"; };
+		8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListViewController.swift; sourceTree = "<group>"; };
 		8EF8F505232F657500E8C008 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		8EF8F507232F658300E8C008 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		8EF8F50B232F65B000E8C008 /* TableViewCollectionViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCollectionViewExtensions.swift; sourceTree = "<group>"; };
@@ -49,11 +49,11 @@
 		8EF8F51A232F772C00E8C008 /* SortingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingView.swift; sourceTree = "<group>"; };
 		8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionViewController.swift; sourceTree = "<group>"; };
 		8EF8F51E232F88AE00E8C008 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		8EF8F5332330741000E8C008 /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
 		8EF8F535233074CB00E8C008 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		8EF8F537233076FC00E8C008 /* BucketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketService.swift; sourceTree = "<group>"; };
 		8EF8F5392330772100E8C008 /* BucketServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketServiceType.swift; sourceTree = "<group>"; };
 		8EF8F53B2330796B00E8C008 /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
+		8EF8F54123309E8C00E8C008 /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF8F4EC232F63D000E8C008 /* AppDelegate.swift */,
-				8EF8F535233074CB00E8C008 /* DataManager.swift */,
-				8EF8F53B2330796B00E8C008 /* Bucket.swift */,
+				8EF8F53E2330990A00E8C008 /* DataModel */,
 				8EF8F519232F770C00E8C008 /* ContentsList */,
 				8EF8F503232F650B00E8C008 /* Uitility */,
 				8EF8F504232F651D00E8C008 /* Network */,
@@ -168,12 +167,21 @@
 		8EF8F519232F770C00E8C008 /* ContentsList */ = {
 			isa = PBXGroup;
 			children = (
-				8EF8F4FE232F64B500E8C008 /* ContentsListViewController.swift */,
+				8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */,
 				8EF8F51A232F772C00E8C008 /* SortingView.swift */,
-				8EF8F5332330741000E8C008 /* ContentTableViewCell.swift */,
+				8EF8F54123309E8C00E8C008 /* ContentTableViewCell.swift */,
 				8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */,
 			);
 			path = ContentsList;
+			sourceTree = "<group>";
+		};
+		8EF8F53E2330990A00E8C008 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				8EF8F535233074CB00E8C008 /* DataManager.swift */,
+				8EF8F53B2330796B00E8C008 /* Bucket.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,12 +263,12 @@
 				8EF8F514232F669800E8C008 /* Identity.swift in Sources */,
 				8EF8F50E232F65B800E8C008 /* Identifiable.swift in Sources */,
 				8EF8F510232F65C600E8C008 /* AlertExtensions.swift in Sources */,
-				8EF8F4FF232F64B500E8C008 /* ContentsListViewController.swift in Sources */,
+				8EF8F4FF232F64B500E8C008 /* ContentListViewController.swift in Sources */,
 				8EF8F51F232F88AE00E8C008 /* Global.swift in Sources */,
 				8EF8F506232F657500E8C008 /* Logger.swift in Sources */,
+				8EF8F54323309E8C00E8C008 /* ContentTableViewCell.swift in Sources */,
 				8EF8F512232F669300E8C008 /* ErrorLog.swift in Sources */,
 				8EF8F508232F658300E8C008 /* UIViewExtension.swift in Sources */,
-				8EF8F5342330741000E8C008 /* ContentTableViewCell.swift in Sources */,
 				8EF8F53A2330772100E8C008 /* BucketServiceType.swift in Sources */,
 				8EF8F53C2330796B00E8C008 /* Bucket.swift in Sources */,
 				8EF8F51B232F772C00E8C008 /* SortingView.swift in Sources */,

@@ -99,7 +99,7 @@ extension UserActionViewController: UITableViewDataSource {
 
 extension UserActionViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    (self.presentingViewController as! ContentsListViewController).backColorFlag = false
+    (self.presentingViewController as! ContentListViewController).backColorFlag = false
     self.dismiss(animated: true)
   }
 }

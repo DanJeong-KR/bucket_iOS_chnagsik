@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ContentsListViewController: UIViewController {
+final class ContentListViewController: UIViewController {
   
   private lazy var sortingView: UIView = {
     let v = SortingView(frame: .zero)
@@ -36,15 +36,25 @@ final class ContentsListViewController: UIViewController {
     return tv
   }()
   
+  // 배경 결정하는 흐림의 정도를 결정하는 변수
   internal var backColorFlag: Bool = false {
     didSet {
       self.view.backgroundColor = self.backColorFlag ? #colorLiteral(red: 0.601804018, green: 0.6007441878, blue: 0.6026645303, alpha: 0.5766210938) : .white
     }
   }
   
+  private var contents: [Bucket] = []
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    DataManager.shared.service.fetchBucketData(order: nil, space: nil, residence: nil) { result in
+      switch result {
+      case .success(let contents):
+        self.contents = contents
+      case .failure(let error):
+        logger(error.localizedDescription)
+      }
+    }
     makeConstrains()
   }
   
@@ -83,20 +93,21 @@ final class ContentsListViewController: UIViewController {
     self.backColorFlag = true
     self.present(vc, animated: true)
   }
-
+  
 }
 
-extension ContentsListViewController: UITableViewDataSource {
+extension ContentListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
+    return 10
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return UITableViewCell()
+    let cell = tableView.dequeue(ContentTableViewCell.self)
+    return cell
   }
 }
 
-extension ContentsListViewController: UITableViewDelegate {
+extension ContentListViewController: UITableViewDelegate {
   
 }
 

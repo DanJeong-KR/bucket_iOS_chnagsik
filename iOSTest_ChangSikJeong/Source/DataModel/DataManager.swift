@@ -13,7 +13,8 @@ final class DataManager {
   static let shared = DataManager()  // 매니저가 여러명이면 산으로 가니까 한명만 관리하도록 싱글톤
   private init() {}
   
+  // 네트워크로 데이터 받는 것도 Manager를 통해서 받도록
+  let service: BucketServiceType = BucketService()
+  
   let sortingData: [String : [String]] = ["정렬" : ["최신순", "베스트순", "인기순"], "공간" : ["거실", "침실", "주방", "욕실"], "주거형태" : ["아파트", "빌라&연립", "단독주택", "사무공간"]]
-  
-  
 }
