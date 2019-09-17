@@ -176,13 +176,18 @@ final class ContentListViewController: UIViewController {
     self.present(vc, animated: true)
   }
   
+  // MARK: - Gesture
   private let blackColorView = UIView()
   private var contentView: UIView?
+  private var contentImageView: UIImageView?
   private let newView = UIView()
   private let newLabel = UILabel()
   private let newImageView = UIImageView()
+  private var beforeX: CGFloat?
+  private var beforeY: CGFloat?
   internal func selectPicture(_ contentView: UIView, _ contentImageView: UIImageView, _ contentLabel: UILabel) {
     self.contentView = contentView
+    self.contentImageView = contentImageView
     
     if let startingFrame = contentView.superview?.convert(contentView.frame, to: nil) {
       // 원래 이미지 안보이게
@@ -211,6 +216,11 @@ final class ContentListViewController: UIViewController {
       newImageView.clipsToBounds = true
       newImageView.contentMode = .scaleAspectFill
       newImageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(deselectPicture)))
+      newImageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(pinchPicture(_:))))
+      
+      beforeX = contentImageView.center.x
+      beforeY = contentImageView.center.y
+      
       newView.addSubview(newLabel)
       newView.addSubview(newImageView)
       
@@ -236,20 +246,52 @@ final class ContentListViewController: UIViewController {
       newImageView.center = CGPoint(x: newX, y: newY)
       sender.setTranslation(.zero, in: newImageView)
       
-//      UIView.animate(withDuration: 0.75, animations: {
-//        // 제자리로 되돌리기
-//        self.newView.frame = startingFrame
-//        self.blackColorView.alpha = 0
-//        self.newLabel.textColor = .darkGray
-//      }) { _ in
-//        // 애니메이션을 위해 만든 것들 지워주고
-//        self.blackColorView.removeFromSuperview()
-//        self.newView.removeFromSuperview()
-//        self.newImageView.removeFromSuperview()
-//        self.contentView?.alpha = 1
-//      }
+      let a = newX - beforeX!
+      let b = newY - beforeY!
+      let pita = (a * a + b * b).squareRoot()
+      
+      if pita < 102 {
+        self.blackColorView.alpha = 1 - (pita / 340)
+      } else {
+        self.blackColorView.alpha = 0.7
+      }
+      print("alpha : ",self.blackColorView.alpha)
+      
+      print("state :", sender.state.rawValue )
+      if sender.state.rawValue == 3 {
+        if self.blackColorView.alpha < 0.71{
+          UIView.animate(withDuration: 0.75, animations: {
+            // 제자리로 되돌리기
+            self.newView.frame = startingFrame
+            self.newImageView.frame = self.contentImageView!.frame
+            self.blackColorView.alpha = 0
+            self.newLabel.textColor = .darkGray
+          }) { _ in
+            // 애니메이션을 위해 만든 것들 지워주고
+            self.blackColorView.removeFromSuperview()
+            self.newView.removeFromSuperview()
+            self.newImageView.removeFromSuperview()
+            self.contentView?.alpha = 1
+          }
+        }else {
+          UIView.animate(withDuration: 0.75) {
+            self.newImageView.center = CGPoint(x: self.beforeX!, y: self.beforeY!)
+            self.blackColorView.alpha = 1
+          }
+        }
+      }
     }
+  }
+  
+  @objc private func pinchPicture(_ sender: UIPinchGestureRecognizer) {
+    newImageView.transform = newImageView.transform.scaledBy(x: sender.scale, y: sender.scale)
+    sender.scale = 1.0
     
+    if sender.state.rawValue == 3 {
+      UIView.animate(withDuration: 0.75) {
+        self.newImageView.transform = .identity
+      }
+    }
   }
   
 }
