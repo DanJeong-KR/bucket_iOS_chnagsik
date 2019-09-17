@@ -66,16 +66,3 @@ class ContentTableViewCell: UITableViewCell {
   }
     
 }
-
-//extension UIImageView {
-//  func load(urlStr: String) {
-//    DispatchQueue.global().async { [weak self] in
-//      guard let `self` = self else { return logger(ErrorLog.retainCycle) }
-//      if let url = URL(string: urlStr), let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-//        DispatchQueue.main.async {
-//          self.image = image
-//        }
-//      }
-//    }
-//  }
-//}

@@ -10,6 +10,9 @@ import UIKit
 
 class UserActionViewController: UIViewController {
   
+  internal var sortingName = ""
+  internal var sortingData: [String] = []
+  
   init(_ sortingName: String, _ sortingData: [String]) {
     super.init(nibName: nil, bundle: nil)
     self.sortingName = sortingName
@@ -37,7 +40,7 @@ class UserActionViewController: UIViewController {
   
   internal lazy var titleLabel: UILabel = {
     let lb = UILabel(frame: .zero)
-    lb.text = "Test"
+    lb.text = "..."
     lb.font = Global.regular
     self.titleView.addSubview(lb)
     return lb
@@ -48,6 +51,7 @@ class UserActionViewController: UIViewController {
     bt.setTitle("초기화", for: .normal)
     bt.titleLabel?.font = Global.regular
     bt.setTitleColor(Global.mainColor, for: .normal)
+    bt.addTarget(self, action: #selector(initButtonDIdTap(_:)), for: .touchUpInside)
     self.titleView.addSubview(bt)
     return bt
   }()
@@ -63,12 +67,12 @@ class UserActionViewController: UIViewController {
     return tv
   }()
   
-  internal var sortingName = ""
-  internal var sortingData: [String] = []
-  
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.titleLabel.text = sortingName
+    
     makeConstraints()
     view.backgroundColor = .clear
   }
@@ -81,6 +85,13 @@ class UserActionViewController: UIViewController {
     initButton.layout.top().trailing(constant: -10)
     
     actionTableView.layout.bottom().leading().trailing().top(equalTo: titleView.bottomAnchor)
+  }
+  
+  @objc private func initButtonDIdTap(_ sender: Any) {
+    // 초기화 버튼 로직
+    if let _ = DataManager.shared.filterData[sortingName] {
+      DataManager.shared.filterData[sortingName] = nil
+    }
   }
 }
 
@@ -99,7 +110,12 @@ extension UserActionViewController: UITableViewDataSource {
 
 extension UserActionViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    // 화면 내려가기
     (self.presentingViewController as! ContentListViewController).backColorFlag = false
     self.dismiss(animated: true)
+    
+    DataManager.shared.filterData[sortingName] = sortingData[indexPath.row]
+    print(DataManager.shared.filterData)
   }
 }

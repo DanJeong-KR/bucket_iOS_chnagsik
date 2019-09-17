@@ -19,8 +19,8 @@ final class ContentListViewController: UIViewController {
     return v
   }()
   
-  private lazy var filterView: UIView = {
-    let v = UIView(frame: .zero)
+  private lazy var filterView: FilterView = {
+    let v = FilterView(frame: .zero)
     v.backgroundColor = .red
     view.addSubview(v)
     return v
@@ -74,6 +74,7 @@ final class ContentListViewController: UIViewController {
     switch sender.id {
     case ButtonID.sortingButton.id:
       print("정렬 버튼 클릭됨 ")
+      
       showUserActionVC(withName: "정렬",
                        withData: DataManager.shared.sortingData["정렬"] ?? ["Dic Error"])
     case ButtonID.spaceButton.id:
