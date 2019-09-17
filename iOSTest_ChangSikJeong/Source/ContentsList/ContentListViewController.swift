@@ -60,22 +60,39 @@ final class ContentListViewController: UIViewController {
     }
   }
   
-  private var contents: [Bucket] = []
+  private var contents: [Bucket] = [] {
+    didSet {
+      self.contentTableView.reloadData()
+    }
+  }
+  
+  private var isScrollIsEnd: Bool = false
   
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     noti()
-    networkService()
+    networkService(isFirst: true)
+    print(contents.count)
     makeConstrains()
   }
   
   //MARK: - Network
-  private func networkService() {
+  private func networkService(isFirst param: Bool) {
     DataManager.shared.service.fetchBucketData(order: nil, space: nil, residence: nil) { result in
+      
+      if !param {
+        self.isScrollIsEnd = true
+      }
+      
       switch result {
       case .success(let contents):
-        self.contents = contents
+        if param {
+          self.contents = contents
+        }else {
+          self.contents += contents
+          self.contentTableView.reloadData()
+        }
       case .failure(let error):
         logger(error.localizedDescription)
       }
@@ -187,9 +204,21 @@ extension ContentListViewController: UITableViewDataSource {
 extension ContentListViewController: UITableViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
-    let test = (scrollView.contentOffset.y % 7500)
-    print("scroll y : ",scrollView.contentOffset, " test : ", test)
+    let offsetY = scrollView.contentOffset.y
+    let contentHeight = scrollView.contentSize.height
+    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
+    if offsetY > contentHeight - scrollView.frame.height {
+      
+      isScrollIsEnd = true
+      if isScrollIsEnd {
+        isScrollIsEnd = false
+        print("infinite check")
+        networkService(isFirst: false)
+      }
+    }
     
   }
+  
+  
 }
 
