@@ -10,10 +10,10 @@ import Foundation
 
 final class BucketService: BucketServiceType {
   
-  
   private let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
   
-  func fetchBucketData(order: String?, space: String?, residence: String?, completionHandler: @escaping (Result<Bucket, ServiceError>) -> Void) {
+  // 테스트 성공
+  func fetchBucketData(order: String?, space: String?, residence: String?, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
     
     var urlComponent = URLComponents(string: baseURL)
     urlComponent?.path = "/bucketplace-coding-test/cards/page_1.json"
@@ -48,7 +48,7 @@ final class BucketService: BucketServiceType {
       }
       
       // JSON Parsing
-      if let bucket = try? JSONDecoder().decode(Bucket.self, from: data) {
+      if let bucket = try? JSONDecoder().decode([Bucket].self, from: data) {
         completionHandler(.success(bucket))
       } else {
         completionHandler(.failure(.invalidFormat))

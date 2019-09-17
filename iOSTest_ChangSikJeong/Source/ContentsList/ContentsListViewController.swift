@@ -45,30 +45,7 @@ final class ContentsListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    fetchBucketData(order: nil, space: nil, residence: nil)
-    fetchBucketData(order: "recent", space: "1", residence: nil)
-    fetchBucketData(order: nil, space: "2", residence: "2")
-    
     makeConstrains()
-  }
-  
-  func fetchBucketData(order: String?, space: String?, residence: String?) {
-    
-    let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
-    
-    var urlComponent = URLComponents(string: baseURL)
-    urlComponent?.path = "/bucketplace-coding-test/cards/page_1.json"
-    urlComponent?.queryItems = []
-    for (a, b) in zip(["order", "space", "residence"], [order, space, residence]) {
-      if let nilTest = b {
-        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: nilTest))
-      }
-    }
-    
-    //urlComponent?.queryItems = [URLQueryItem(name: "test", value: "testt")]
-    
-    
-    print(urlComponent!.url!)
   }
   
   private func makeConstrains() {
