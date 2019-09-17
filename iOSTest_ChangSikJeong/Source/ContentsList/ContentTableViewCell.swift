@@ -17,14 +17,18 @@ class ContentTableViewCell: UITableViewCell {
     lb.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
     lb.text = "...loading"
     lb.font = Global.regular
-    self.addSubview(lb)
+    lb.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(contentViewDidTap)))
+    lb.isUserInteractionEnabled = true
+    self.contentView.addSubview(lb)
     return lb
   }()
   
   internal lazy var contentImageView: UIImageView = {
     let iv = UIImageView(frame: .zero)
     iv.contentMode = .scaleAspectFill
-    addSubview(iv)
+    iv.isUserInteractionEnabled = true
+    iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(contentViewDidTap)))
+    self.contentView.addSubview(iv)
     return iv
   }()
   
@@ -38,6 +42,13 @@ class ContentTableViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     makeConstraint()
+  }
+  
+  var contentVC: ContentListViewController?
+  
+  @objc private func contentViewDidTap() {
+    logger("contentImageViewDidTap")
+    contentVC?.selectPicture(self.contentView, self.contentImageView, self.contentTextLabel)
   }
   
   override func layoutSubviews() {

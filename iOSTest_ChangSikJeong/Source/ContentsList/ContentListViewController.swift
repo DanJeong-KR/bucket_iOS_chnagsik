@@ -176,6 +176,82 @@ final class ContentListViewController: UIViewController {
     self.present(vc, animated: true)
   }
   
+  private let blackColorView = UIView()
+  private var contentView: UIView?
+  private let newView = UIView()
+  private let newLabel = UILabel()
+  private let newImageView = UIImageView()
+  internal func selectPicture(_ contentView: UIView, _ contentImageView: UIImageView, _ contentLabel: UILabel) {
+    self.contentView = contentView
+    
+    if let startingFrame = contentView.superview?.convert(contentView.frame, to: nil) {
+      // 원래 이미지 안보이게
+      self.contentView!.alpha = 0
+      
+      blackColorView.frame = self.view.frame
+      blackColorView.backgroundColor = .black
+      blackColorView.alpha = 0
+      view.addSubview(blackColorView)
+      
+      
+      newView.frame = startingFrame
+      newView.isUserInteractionEnabled = true
+      
+      
+      newLabel.frame = contentLabel.frame
+      newLabel.text = contentLabel.text
+      newLabel.numberOfLines = 5
+      newLabel.lineBreakMode = .byTruncatingTail // ... 더보기
+      newLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+      newLabel.font = Global.regular
+      
+      newImageView.frame = contentImageView.frame
+      newImageView.image = contentImageView.image
+      newImageView.isUserInteractionEnabled = true
+      newImageView.clipsToBounds = true
+      newImageView.contentMode = .scaleAspectFill
+      newImageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(deselectPicture)))
+      newView.addSubview(newLabel)
+      newView.addSubview(newImageView)
+      
+      self.view.addSubview(newView)
+      
+      UIView.animate(withDuration: 0.75) {
+        let height = (self.view.frame.width / startingFrame.width) * startingFrame.height
+        let y = self.view.frame.height / 2 - height / 2
+        self.newView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
+        
+        self.blackColorView.alpha = 1
+        self.newLabel.textColor = .white
+      }
+    }
+  }
+  
+  @objc private func deselectPicture(_ sender: UIPanGestureRecognizer) {
+    if let startingFrame = contentView!.superview?.convert(contentView!.frame, to: nil) {
+      
+      let transition = sender.translation(in: newImageView)
+      let newX = newImageView.center.x + transition.x
+      let newY = newImageView.center.y + transition.y
+      newImageView.center = CGPoint(x: newX, y: newY)
+      sender.setTranslation(.zero, in: newImageView)
+      
+//      UIView.animate(withDuration: 0.75, animations: {
+//        // 제자리로 되돌리기
+//        self.newView.frame = startingFrame
+//        self.blackColorView.alpha = 0
+//        self.newLabel.textColor = .darkGray
+//      }) { _ in
+//        // 애니메이션을 위해 만든 것들 지워주고
+//        self.blackColorView.removeFromSuperview()
+//        self.newView.removeFromSuperview()
+//        self.newImageView.removeFromSuperview()
+//        self.contentView?.alpha = 1
+//      }
+    }
+    
+  }
+  
 }
 
 extension ContentListViewController: UITableViewDataSource {
@@ -186,27 +262,12 @@ extension ContentListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeue(ContentTableViewCell.self)
     cell.setContents(with: contents[indexPath.row])
+    cell.contentVC = self
     return cell
   }
 }
 
 extension ContentListViewController: UITableViewDelegate {
-//  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//
-//    let offsetY = scrollView.contentOffset.y
-//    let contentHeight = scrollView.contentSize.height
-////    print("offsetY : \(offsetY) / compare : \(contentHeight - scrollView.frame.height)")
-//    if offsetY > contentHeight - scrollView.frame.height {
-//
-//      // FIXME: - 2번씩 데이터 추가되는 거 고치기
-//      isScrollIsEnd = true
-//      if isScrollIsEnd {
-//        isScrollIsEnd = false
-//        networkService(forScroll: true)
-//      }
-//    }
-//
-//  }
   
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     let offsetY = scrollView.contentOffset.y
@@ -224,6 +285,8 @@ extension ContentListViewController: UITableViewDelegate {
     }
   }
   
-  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+  }
 }
 
