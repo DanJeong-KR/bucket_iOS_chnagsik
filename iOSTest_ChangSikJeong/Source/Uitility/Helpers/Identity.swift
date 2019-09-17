@@ -29,5 +29,6 @@ extension UIControl {
 }
 
 enum NotificationID {
-  static let DataDidChanged = NSNotification.Name("DataDidChanged")
+  static let UserActionDidTap = NSNotification.Name("UserActionDidTap")
+  static let FilterCancelButtonDidTap = NSNotification.Name(rawValue: "FilterCancelButtonDidTap")
 }

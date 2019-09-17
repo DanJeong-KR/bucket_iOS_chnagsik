@@ -15,11 +15,27 @@ final class DataManager {
   
   // 네트워크로 데이터 받는 것도 Manager를 통해서 받도록
   let service: BucketServiceType = BucketService()
+  let noti = NotificationCenter.default
   
   let sortingData: [String : [String]] = ["정렬" : ["최신순", "베스트순", "인기순"], "공간" : ["거실", "침실", "주방", "욕실"], "주거형태" : ["아파트", "빌라&연립", "단독주택", "사무공간"]]
   
   
   // MARK: - filter Data 부분
   var filterData: [String: String?] = ["정렬" : nil, "공간" : nil, "주거형태" : nil]
+  
+  var filterDataArr: [String] = []
+  
+  func reloadFilterData() -> [String] {
+    let dicData = DataManager.shared.filterData
+    var array: [String] = []
+    for value in dicData.values {
+      if let data = value {
+        array.append(data)
+      }
+    }
+    filterDataArr = array.sorted()
+    
+    return filterDataArr
+  }
   
 }

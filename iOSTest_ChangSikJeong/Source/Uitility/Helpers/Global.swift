@@ -13,6 +13,8 @@ internal struct Global {
   
   
   static let bold = UIFont.systemFont(ofSize: 18, weight: .bold)
-  static let regular = UIFont.systemFont(ofSize: 18, weight: .regular)
+  static let heavy = UIFont.systemFont(ofSize: 16, weight: .heavy)
+  static let regular = UIFont.systemFont(ofSize: 16, weight: .regular)
+  static let medium = UIFont.systemFont(ofSize: 16, weight: .medium)
   static let thin = UIFont.systemFont(ofSize: 16, weight: .thin)
 }

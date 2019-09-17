@@ -10,6 +10,7 @@ import UIKit
 
 final class ContentListViewController: UIViewController {
   
+  // MARK: - Properties
   private lazy var sortingView: UIView = {
     let v = SortingView(frame: .zero)
     v.orderButton.addTarget(self, action: #selector(buttonsDidTap(_:)), for: .touchUpInside)
@@ -38,17 +39,39 @@ final class ContentListViewController: UIViewController {
     return tv
   }()
   
+  private lazy var backColorView: UIView = {
+    let v = UIView(frame: .zero)
+    v.backgroundColor = .clear
+    self.view.addSubview(v)
+    self.view.insertSubview(v, at: 0)
+    return v
+  }()
+  
   // 배경 결정하는 흐림의 정도를 결정하는 변수
   internal var backColorFlag: Bool = false {
     didSet {
-      self.view.backgroundColor = self.backColorFlag ? #colorLiteral(red: 0.601804018, green: 0.6007441878, blue: 0.6026645303, alpha: 0.5766210938) : .white
+      if self.backColorFlag {
+        self.backColorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6024843751)
+      } else {
+        self.backColorView.backgroundColor = .clear
+        self.view.insertSubview(backColorView, at: 0)
+      }
+      
     }
   }
   
   private var contents: [Bucket] = []
   
+  //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    noti()
+    networkService()
+    makeConstrains()
+  }
+  
+  //MARK: - Network
+  private func networkService() {
     DataManager.shared.service.fetchBucketData(order: nil, space: nil, residence: nil) { result in
       switch result {
       case .success(let contents):
@@ -57,19 +80,50 @@ final class ContentListViewController: UIViewController {
         logger(error.localizedDescription)
       }
     }
-    makeConstrains()
   }
+  
+  //MARK: - Layouts
+  var filterHeight: NSLayoutConstraint?
   
   private func makeConstrains() {
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
     sortingView.layout.top(equalTo: view.topAnchor, constant: statusBarHeight).leading().trailing().height(constant: 50)
     
-    filterView.layout.top(equalTo: sortingView.bottomAnchor).leading().trailing().height(equalTo: sortingView.heightAnchor)
+    filterView.layout.top(equalTo: sortingView.bottomAnchor).leading().trailing()
+    filterHeight = filterView.heightAnchor.constraint(equalToConstant: 1)
+    filterHeight?.isActive = true
     
     contentTableView.layout.top(equalTo: filterView.bottomAnchor).leading().trailing().bottom()
+    
+    backColorView.layout.equalToSuperView()
   }
   
+  //MARK: - Notification
+  private func noti() {
+    DataManager.shared.noti.addObserver(self, selector: #selector(notification(_:)), name: NotificationID.UserActionDidTap, object: nil)
+    DataManager.shared.noti.addObserver(self, selector: #selector(notification(_:)), name: NotificationID.FilterCancelButtonDidTap, object: nil)
+  }
+  
+  deinit {
+    DataManager.shared.noti.removeObserver(self, name: NotificationID.UserActionDidTap, object: nil)
+  }
+  
+  @objc private func notification(_ sender: Notification) {
+    switch sender.name {
+    case NotificationID.UserActionDidTap:
+      filterHeight?.constant = 50
+    case NotificationID.FilterCancelButtonDidTap:
+      print(DataManager.shared.filterDataArr)
+//      filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
+    default:
+      break
+    }
+  }
+  
+  //MARK: - Action Methods
   @objc private func buttonsDidTap(_ sender: UIButton) {
+    
+    self.view.bringSubviewToFront(self.backColorView)
     
     switch sender.id {
     case ButtonID.sortingButton.id:

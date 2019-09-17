@@ -112,10 +112,14 @@ extension UserActionViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     // 화면 내려가기
-    (self.presentingViewController as! ContentListViewController).backColorFlag = false
+    let contentListVC = (self.presentingViewController as! ContentListViewController)
+    contentListVC.backColorFlag = false
     self.dismiss(animated: true)
     
     DataManager.shared.filterData[sortingName] = sortingData[indexPath.row]
     print(DataManager.shared.filterData)
+    
+    // FilterView가 이벤트를 감지하기 위한 노티
+    DataManager.shared.noti.post(name: NotificationID.UserActionDidTap, object: nil)
   }
 }

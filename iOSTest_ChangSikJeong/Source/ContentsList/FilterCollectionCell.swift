@@ -10,12 +10,31 @@ import UIKit
 
 class FilterCollectionCell: UICollectionViewCell {
   
-  lazy var testlabel: UILabel = {
+  lazy var label: UILabel = {
     let lb = UILabel(frame: .zero)
-    lb.text = "test"
+    lb.text = "...로딩중"
+    lb.textColor = .white
+    lb.font = Global.heavy
+    lb.layer.cornerRadius = 15
+    lb.clipsToBounds = true
+    lb.backgroundColor = Global.mainColor
+    lb.isUserInteractionEnabled = true
     addSubview(lb)
     return lb
   }()
+  
+  lazy var cancelButton: UIButton = {
+    let bt = UIButton(type: .custom)
+    bt.setTitle("✗", for: .normal)
+    bt.backgroundColor = .white
+    bt.layer.cornerRadius = 10
+    bt.clipsToBounds = true
+    bt.setTitleColor(Global.mainColor, for: .normal)
+    bt.addTarget(self, action: #selector(cancelButtonDidTap(_:)), for: .touchUpInside)
+    label.addSubview(bt)
+    return bt
+  }()
+  
   // MARK: - Initializers
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
@@ -29,6 +48,29 @@ class FilterCollectionCell: UICollectionViewCell {
   
   // MARK: - Layout Methods
   private func makeConstraints() {
-    testlabel.layout.equalToSuperView()
+    label.layout.top(constant: 10).bottom(constant: -10).leading(constant: 5).trailing()
+    cancelButton.layout.trailing(constant: -5).centerY().height(constant: 20).width(constant: 20)
+  }
+  
+  @objc private func cancelButtonDidTap(_ sender: Any) {
+    print("CancelButton Did Tap")
+    let sortingData = DataManager.shared.sortingData
+    var text = self.label.text!
+    (1...2).forEach { (_) in
+      text.removeFirst()
+    }
+    
+    if sortingData["정렬"]!.contains(text) {
+      DataManager.shared.filterData["정렬"] = nil
+    }else if sortingData["공간"]!.contains(text) {
+      DataManager.shared.filterData["공간"] = nil
+    }else {
+      DataManager.shared.filterData["주거형태"] = nil
+    }
+    DataManager.shared.noti.post(name: NotificationID.FilterCancelButtonDidTap, object: nil)
+  }
+  
+  internal func setFilterCell(with text: String) {
+    self.label.text = "  " + text
   }
 }
