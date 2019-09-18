@@ -11,7 +11,7 @@ import UIKit
 final class ContentListViewController: UIViewController {
   
   // MARK: - Properties
-  private lazy var sortingView: SortingView = {
+  internal lazy var sortingView: SortingView = {
     let v = SortingView(frame: .zero)
     v.orderButton.addTarget(self, action: #selector(buttonsDidTap(_:)), for: .touchUpInside)
     v.spaceButton.addTarget(self, action: #selector(buttonsDidTap(_:)), for: .touchUpInside)
@@ -75,7 +75,6 @@ final class ContentListViewController: UIViewController {
   //MARK: - Network
   private func networkService(forScroll param: Bool) {
     let filterData = DataManager.shared.filterData
-    print("network Filter Data : ",filterData)
     DataManager.shared.service.fetchBucketData(order: filterData["정렬"] ?? nil, space: filterData["공간"] ?? nil, residence: filterData["주거형태"] ?? nil, page: "1") { result in
       
       switch result {
@@ -83,12 +82,12 @@ final class ContentListViewController: UIViewController {
         DispatchQueue.main.async {
           if param {
             // load more 의 경우 기존의 데이터 뒤에 추가하기.
-            self.contents += contents
+            DataManager.shared.addContents(contents)
           }else {
             // load more 가 아닐 때는 기존의 데이터 갱신
-            self.contents = []
-            self.contents = contents
+            DataManager.shared.setContents(contents)
           }
+          self.contents = DataManager.shared.getContents()
           self.contentTableView.reloadData()
         }
       case .failure(let error):
@@ -136,14 +135,15 @@ final class ContentListViewController: UIViewController {
     
     let filterData = DataManager.shared.filterData
     
+    print("filterData : ", filterData)
     //FIXME: - 왜 전부 true 되는지 모르겠네 버근가
 //    sortingView.orderButton.isSelected = filterData["정렬"] != nil ? true : false
 //    sortingView.spaceButton.isSelected = filterData["공간"] != nil ? true : false
 //    sortingView.residenceButton.isSelected = DataManager.shared.filterData["주거형태"] == nil ? false : true
     
-//    print("order Button : ", sortingView.orderButton.isSelected)
-//    print("space Button : ", sortingView.spaceButton.isSelected)
-//    print("resi Button : ", sortingView.residenceButton.isSelected)
+    print("order Button : ", sortingView.orderButton.isSelected)
+    print("space Button : ", sortingView.spaceButton.isSelected)
+    print("resi Button : ", sortingView.residenceButton.isSelected)
   }
   
   //MARK: - Action Methods

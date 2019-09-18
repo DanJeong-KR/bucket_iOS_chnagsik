@@ -15,10 +15,10 @@ final class DataManager {
   
   // 네트워크로 데이터 받는 것도 Manager를 통해서 받도록
   let service: BucketServiceType = BucketService()
+  
   let noti = NotificationCenter.default
   
   let sortingData: [String : [String]] = ["정렬" : ["최신순", "베스트순", "인기순"], "공간" : ["거실", "침실", "주방", "욕실"], "주거형태" : ["아파트", "빌라&연립", "단독주택", "사무공간"]]
-  
   
   // MARK: - filter Data 부분
   var filterData: [String: String?] = ["정렬" : nil, "공간" : nil, "주거형태" : nil]
@@ -36,6 +36,26 @@ final class DataManager {
     }
   }
   
+  // MARK: - Contents List Data 부분
+  // 핵심 데이터이기 때문에 직접 접근 못하게 막아놓음.
+  private var contents: [Bucket] = []
+  
+  internal func getContents() -> [Bucket] {
+    return contents
+  }
+  
+  // 기존에 있던 데이터에 추가
+  internal func addContents(_ contents: [Bucket]) {
+    self.contents += contents
+  }
+  
+  // 새로운 데이터로 갱신
+  internal func setContents(_ contents: [Bucket]) {
+    self.contents.removeAll()
+    self.contents = contents
+  }
+  
+  // 정렬별 url query문에 사용할 문자열 변환
   func convertText(_ text: String) -> String {
     switch text {
     case "최신순":

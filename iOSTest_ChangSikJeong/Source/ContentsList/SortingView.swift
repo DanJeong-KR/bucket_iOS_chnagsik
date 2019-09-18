@@ -24,7 +24,6 @@ class SortingView: UIView {
   }()
   
   
-  
   internal lazy var spaceButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.setTitle("  공간 ▾  ", for: .normal)
