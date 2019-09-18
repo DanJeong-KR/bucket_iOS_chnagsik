@@ -15,6 +15,7 @@
 * ~~pod, carthage 등 Xcode로 build 전에 필요한 step이 있으면 적어주세요.~~
 
 ### 3.[Commit Message 규칙](https://changsic.github.io/CommitMessage/)
+
 * `feat` : 새로운 기능 추가
 * `fix` : 버그 수정
 * `docs` : 문서 수정
@@ -22,8 +23,9 @@
 * `refactor` : 코드 리펙토링
 * `test` : 테스트 코드, 리펙토링 테스트 코드 추가
 
-# 구현단계
 
+# 구현단계
+<a href="/images/commit.png" target="_blank"><img src="/images/commit.png" width=250></a>
 * 1. 리스트
     - ~~콘텐츠 내용으로 이루어진 list 부분과 정렬, 필터 부분이 있습니다.~~
     - ~~필터의 내용과 페이지를 parameter로 api를 호출하여 리스트의 내용을 받아옵니다.~~
