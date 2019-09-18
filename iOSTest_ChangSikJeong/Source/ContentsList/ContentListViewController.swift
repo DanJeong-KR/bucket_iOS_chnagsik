@@ -124,12 +124,7 @@ final class ContentListViewController: UIViewController {
   
   @objc private func notification(_ sender: Notification) {
     // FilterView는 필터 걸면 나타나고, 취소하면 없어지게
-    UIView.animate(withDuration: 0.7) {
-      self.filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
-      //self.filterView.filterCollectionView.alpha = DataManager.shared.filterDataArr.isEmpty ? 0 : 1
-      self.filterView.layoutIfNeeded()
-    }
-    //filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
+    self.filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
     
     // 필터 걸거나 취소하면 스크롤 가장 위로 이동시키기.
     contentTableView.setContentOffset(.zero, animated: true)

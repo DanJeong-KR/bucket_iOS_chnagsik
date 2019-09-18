@@ -64,13 +64,9 @@ class FilterView: UIView {
   }
   
   @objc private func notification(_ senrder: Notification) {
-    filterData = DataManager.shared.filterDataArr
     
-    UIView.animate(withDuration: 0.4) {
-      self.filterCollectionView.reloadData()
-      self.filterCollectionView.layoutIfNeeded()
-    }
-    //self.filterCollectionView.reloadData()
+    filterData = DataManager.shared.filterDataArr
+    self.filterCollectionView.reloadData()
   }
 }
 
