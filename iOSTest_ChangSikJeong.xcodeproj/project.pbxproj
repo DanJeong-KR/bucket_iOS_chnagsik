@@ -38,7 +38,7 @@
 		8EF8F4F3232F63D100E8C008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8EF8F4F6232F63D100E8C008 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EF8F4F8232F63D100E8C008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListViewController.swift; sourceTree = "<group>"; };
+		8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentListViewController.swift; path = ../ContentListViewController.swift; sourceTree = "<group>"; };
 		8EF8F505232F657500E8C008 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		8EF8F507232F658300E8C008 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		8EF8F50B232F65B000E8C008 /* TableViewCollectionViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCollectionViewExtensions.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		8EF8F515232F66CD00E8C008 /* ServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		8EF8F517232F6FDE00E8C008 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8EF8F51A232F772C00E8C008 /* SortingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingView.swift; sourceTree = "<group>"; };
-		8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionViewController.swift; sourceTree = "<group>"; };
+		8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserActionViewController.swift; path = ../UserActionViewController.swift; sourceTree = "<group>"; };
 		8EF8F51E232F88AE00E8C008 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		8EF8F535233074CB00E8C008 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		8EF8F537233076FC00E8C008 /* BucketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketService.swift; sourceTree = "<group>"; };
@@ -71,6 +71,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8EA916D92331BC2700C0ACF2 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */,
+				8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		8EF8F4E0232F63D000E8C008 = {
 			isa = PBXGroup;
 			children = (
@@ -171,12 +180,11 @@
 		8EF8F519232F770C00E8C008 /* ContentsList */ = {
 			isa = PBXGroup;
 			children = (
-				8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */,
+				8EA916D92331BC2700C0ACF2 /* New Group */,
 				8EF8F51A232F772C00E8C008 /* SortingView.swift */,
 				8EF8F5452330BAB500E8C008 /* FilterView.swift */,
 				8EF8F5472330BDE900E8C008 /* FilterCollectionCell.swift */,
 				8EF8F54123309E8C00E8C008 /* ContentTableViewCell.swift */,
-				8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */,
 			);
 			path = ContentsList;
 			sourceTree = "<group>";

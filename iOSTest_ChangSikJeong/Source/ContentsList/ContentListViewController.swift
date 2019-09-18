@@ -146,15 +146,12 @@ final class ContentListViewController: UIViewController {
     
     switch sender.id {
     case ButtonID.sortingButton.id:
-      print("정렬 버튼 클릭됨 ")
       showUserActionVC(withName: "정렬",
                        withData: DataManager.shared.sortingData["정렬"] ?? ["Dic Error"])
     case ButtonID.spaceButton.id:
-      print("공간 버튼 클릭 됨")
       showUserActionVC(withName: "공간",
                        withData: DataManager.shared.sortingData["공간"] ?? ["Dic Error"])
     case ButtonID.residenceButton.id:
-      print("주거형태 버튼 클릭 됨")
       showUserActionVC(withName: "주거형태",
                        withData: DataManager.shared.sortingData["주거형태"] ?? ["Dic Error"])
     default:
@@ -249,9 +246,6 @@ final class ContentListViewController: UIViewController {
       } else {
         self.blackColorView.alpha = 0.7
       }
-      print("alpha : ",self.blackColorView.alpha)
-      
-      print("state :", sender.state.rawValue )
       if sender.state.rawValue == 3 {
         if self.blackColorView.alpha < 0.71{
           UIView.animate(withDuration: 0.75, animations: {

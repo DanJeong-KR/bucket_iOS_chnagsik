@@ -53,7 +53,6 @@ class FilterCollectionCell: UICollectionViewCell {
   }
   
   @objc private func cancelButtonDidTap(_ sender: Any) {
-    print("CancelButton Did Tap")
     let sortingData = DataManager.shared.sortingData
     var text = self.label.text!
     (1...2).forEach { (_) in
