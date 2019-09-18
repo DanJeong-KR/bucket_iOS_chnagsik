@@ -25,7 +25,7 @@
 
 
 # 구현단계
-<a href="/images/commit.png" target="_blank"><img src="/images/commit.png" width=250></a>
+<a href="/images/commit.png" target="_blank"><img src="/images/commit.png"></a>
 * 1. 리스트
     - ~~콘텐츠 내용으로 이루어진 list 부분과 정렬, 필터 부분이 있습니다.~~
     - ~~필터의 내용과 페이지를 parameter로 api를 호출하여 리스트의 내용을 받아옵니다.~~
