@@ -10,13 +10,11 @@ import UIKit
 
 class FilterView: UIView {
   
-  internal var filterData: [String] = [] {
-    didSet {
-      self.filterCollectionView.reloadData()
-    }
-  }
+  // MARK: - Data Properties
+  internal var filterData: [String] = []
   
-  private lazy var filterCollectionView: UICollectionView = {
+  // MARK: - Properties
+  internal lazy var filterCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     layout.minimumLineSpacing = 0
@@ -35,8 +33,10 @@ class FilterView: UIView {
     return cv
   }()
 
+  // MARK: - Initializers
   override init(frame: CGRect) {
     super.init(frame: frame)
+    
     makeConstraints()
     noti()
   }
@@ -46,10 +46,12 @@ class FilterView: UIView {
     fatalError(ErrorLog.coderInit)
   }
   
+  // MARK: - Layout Methods
   private func makeConstraints() {
     filterCollectionView.layout.equalToSuperView()
   }
   
+  // MARKL - Notification
   private func noti() {
     DataManager.shared.noti.addObserver(self, selector: #selector(notification(_:)), name: NotificationID.UserActionDidTap, object: nil)
     DataManager.shared.noti.addObserver(self, selector: #selector(notification(_:)), name: NotificationID.FilterCancelButtonDidTap, object: nil)
@@ -61,22 +63,18 @@ class FilterView: UIView {
     
   }
   
-  // FIXME: - refac
   @objc private func notification(_ senrder: Notification) {
-    
     filterData = DataManager.shared.filterDataArr
-//    switch senrder.name {
-//    case NotificationID.UserActionDidTap:
-//      filterData = DataManager.shared.filterDataArr
-//
-//    case NotificationID.FilterCancelButtonDidTap:
-//      filterData = DataManager.shared.filterDataArr
-//    default:
-//      break
-//    }
+    
+    UIView.animate(withDuration: 0.4) {
+      self.filterCollectionView.reloadData()
+      self.filterCollectionView.layoutIfNeeded()
+    }
+    //self.filterCollectionView.reloadData()
   }
 }
 
+// MARK: - CollectionView DataSource
 extension FilterView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return filterData.count
@@ -92,6 +90,7 @@ extension FilterView: UICollectionViewDataSource {
   
 }
 
+// MARK: - Collection FlowLayout and Delegate
 extension FilterView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     

@@ -22,7 +22,6 @@ final class ContentListViewController: UIViewController {
   
   private lazy var filterView: FilterView = {
     let v = FilterView(frame: .zero)
-    v.backgroundColor = .red
     view.addSubview(v)
     return v
   }()
@@ -47,7 +46,7 @@ final class ContentListViewController: UIViewController {
     return v
   }()
   
-  // 배경 결정하는 흐림의 정도를 결정하는 변수
+  // 어두운 배경색 결정하는 플래그
   internal var backColorFlag: Bool = false {
     didSet {
       if self.backColorFlag {
@@ -124,15 +123,21 @@ final class ContentListViewController: UIViewController {
   }
   
   @objc private func notification(_ sender: Notification) {
-    // 필터 걸면 나타나고, 취소하면 없어지게
-    filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
+    // FilterView는 필터 걸면 나타나고, 취소하면 없어지게
+    UIView.animate(withDuration: 0.7) {
+      self.filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
+      //self.filterView.filterCollectionView.alpha = DataManager.shared.filterDataArr.isEmpty ? 0 : 1
+      self.filterView.layoutIfNeeded()
+    }
+    //filterHeight?.constant = DataManager.shared.filterDataArr.isEmpty ? 1 : 50
     
-    // 필터 걸면 스크롤 가장 위로 이동시키기.
-    contentTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    // 필터 걸거나 취소하면 스크롤 가장 위로 이동시키기.
+    contentTableView.setContentOffset(.zero, animated: true)
     
     // 필터에 따라서 다른 데이터 받고 테이블 뷰에 적용하기
     networkService(forScroll: false)
     
+    // 필터 상태에 따라 동적으로 변하는 버튼색
     let filterData = DataManager.shared.filterData
     sortingView.orderButton.isSelected = filterData["정렬"] != "0" ? true : false
     sortingView.spaceButton.isSelected = filterData["공간"] != "0" ? true : false
@@ -166,7 +171,7 @@ final class ContentListViewController: UIViewController {
     self.present(vc, animated: true)
   }
   
-  // MARK: - Gesture
+  // MARK: - for Gesture
   private let blackColorView = UIView()
   private var contentView: UIView?
   private var contentImageView: UIImageView?
@@ -175,12 +180,14 @@ final class ContentListViewController: UIViewController {
   private let newImageView = UIImageView()
   private var beforeX: CGFloat?
   private var beforeY: CGFloat?
+  
   internal func selectPicture(_ contentView: UIView, _ contentImageView: UIImageView, _ contentLabel: UILabel) {
+    // label 이 아닌 ImageView만 panning 으로 이동하기 때문에 imaveView만 셀의 참조정보 가지고 있자.
     self.contentView = contentView
     self.contentImageView = contentImageView
     
     if let startingFrame = contentView.superview?.convert(contentView.frame, to: nil) {
-      // 원래 이미지 안보이게
+      // 기존 뷰 안보이게
       self.contentView!.alpha = 0
       
       blackColorView.frame = self.view.frame
@@ -188,11 +195,11 @@ final class ContentListViewController: UIViewController {
       blackColorView.alpha = 0
       view.addSubview(blackColorView)
       
-      
+      // contentView  설정
       newView.frame = startingFrame
       newView.isUserInteractionEnabled = true
       
-      
+      // label 설정
       newLabel.frame = contentLabel.frame
       newLabel.text = contentLabel.text
       newLabel.numberOfLines = 5
@@ -200,6 +207,7 @@ final class ContentListViewController: UIViewController {
       newLabel.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
       newLabel.font = Global.regular
       
+      // imageView  설정
       newImageView.frame = contentImageView.frame
       newImageView.image = contentImageView.image
       newImageView.isUserInteractionEnabled = true
@@ -227,6 +235,7 @@ final class ContentListViewController: UIViewController {
     }
   }
   
+  // MARK: - Pan Gesture
   @objc private func deselectPicture(_ sender: UIPanGestureRecognizer) {
     if let startingFrame = contentView!.superview?.convert(contentView!.frame, to: nil) {
       
@@ -271,6 +280,7 @@ final class ContentListViewController: UIViewController {
     }
   }
   
+  // MARK: Pinch Gesture
   @objc private func pinchPicture(_ sender: UIPinchGestureRecognizer) {
     newImageView.transform = newImageView.transform.scaledBy(x: sender.scale, y: sender.scale)
     sender.scale = 1.0
@@ -284,6 +294,7 @@ final class ContentListViewController: UIViewController {
   
 }
 
+// MARK: - TableView DataSource
 extension ContentListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return contents.count
@@ -297,6 +308,7 @@ extension ContentListViewController: UITableViewDataSource {
   }
 }
 
+// MARK: - TableView Delegate
 extension ContentListViewController: UITableViewDelegate {
   
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -304,9 +316,12 @@ extension ContentListViewController: UITableViewDelegate {
     let contentHeight = scrollView.contentSize.height
     if offsetY > contentHeight - scrollView.frame.height {
       
+      // 스크롤이 끝에 도달하면
       isScrollIsEnd = true
+      
       if isScrollIsEnd {
         isScrollIsEnd = false
+        // 추가용 데이터 네트워크로 받기.
         networkService(forScroll: true)
       }
     }

@@ -71,13 +71,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8EA916D92331BC2700C0ACF2 /* New Group */ = {
+		8EA916D92331BC2700C0ACF2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				8EF8F4FE232F64B500E8C008 /* ContentListViewController.swift */,
 				8EF8F51C232F86EF00E8C008 /* UserActionViewController.swift */,
 			);
-			path = "New Group";
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8EA916DA2331BC8E00C0ACF2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8EF8F51A232F772C00E8C008 /* SortingView.swift */,
+				8EF8F5452330BAB500E8C008 /* FilterView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8EA916DB2331BC9900C0ACF2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8EF8F5472330BDE900E8C008 /* FilterCollectionCell.swift */,
+				8EF8F54123309E8C00E8C008 /* ContentTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		8EF8F4E0232F63D000E8C008 = {
@@ -180,11 +198,9 @@
 		8EF8F519232F770C00E8C008 /* ContentsList */ = {
 			isa = PBXGroup;
 			children = (
-				8EA916D92331BC2700C0ACF2 /* New Group */,
-				8EF8F51A232F772C00E8C008 /* SortingView.swift */,
-				8EF8F5452330BAB500E8C008 /* FilterView.swift */,
-				8EF8F5472330BDE900E8C008 /* FilterCollectionCell.swift */,
-				8EF8F54123309E8C00E8C008 /* ContentTableViewCell.swift */,
+				8EA916D92331BC2700C0ACF2 /* Controller */,
+				8EA916DA2331BC8E00C0ACF2 /* View */,
+				8EA916DB2331BC9900C0ACF2 /* Cell */,
 			);
 			path = ContentsList;
 			sourceTree = "<group>";

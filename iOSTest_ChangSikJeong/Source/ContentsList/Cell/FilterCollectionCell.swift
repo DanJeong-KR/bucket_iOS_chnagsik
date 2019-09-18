@@ -10,6 +10,7 @@ import UIKit
 
 class FilterCollectionCell: UICollectionViewCell {
   
+  // MARK: - Properties
   lazy var label: UILabel = {
     let lb = UILabel(frame: .zero)
     lb.text = "...로딩중"
@@ -52,6 +53,7 @@ class FilterCollectionCell: UICollectionViewCell {
     cancelButton.layout.trailing(constant: -5).centerY().height(constant: 20).width(constant: 20)
   }
   
+  // MARK: - Action Methods
   @objc private func cancelButtonDidTap(_ sender: Any) {
     let sortingData = DataManager.shared.sortingData
     var text = self.label.text!

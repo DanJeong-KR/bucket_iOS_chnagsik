@@ -10,14 +10,17 @@ import UIKit
 
 class UserActionViewController: UIViewController {
   
-  
+  // MARK: - Data Properties
   internal var sortingName = ""
   internal var sortingData: [String] = []
+  
+  private var contentListVC: ContentListViewController?
   
   // MARK: - Properties
   private lazy var clearView: UIView = {
     let v = UIView(frame: .zero)
     v.backgroundColor = .clear
+    v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(clearViewDidTap(_:))))
     self.view.addSubview(v)
     return v
   }()
@@ -32,7 +35,7 @@ class UserActionViewController: UIViewController {
   internal lazy var titleLabel: UILabel = {
     let lb = UILabel(frame: .zero)
     lb.text = "..."
-    lb.font = Global.regular
+    lb.font = Global.heavy
     self.titleView.addSubview(lb)
     return lb
   }()
@@ -40,7 +43,8 @@ class UserActionViewController: UIViewController {
   private lazy var initButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.setTitle("초기화", for: .normal)
-    bt.titleLabel?.font = Global.regular
+    bt.setTitleColor(.white, for: .selected)
+    bt.titleLabel?.font = Global.heavy
     bt.setTitleColor(Global.mainColor, for: .normal)
     bt.addTarget(self, action: #selector(initButtonDIdTap(_:)), for: .touchUpInside)
     self.titleView.addSubview(bt)
@@ -75,7 +79,8 @@ class UserActionViewController: UIViewController {
     super.viewDidLoad()
     
     self.titleLabel.text = sortingName
-    
+    contentListVC = (self.presentingViewController as! ContentListViewController)
+    initButton.isHidden = DataManager.shared.filterData[sortingName] == "0" ? true : false
     makeConstraints()
     view.backgroundColor = .clear
   }
@@ -91,12 +96,30 @@ class UserActionViewController: UIViewController {
     actionTableView.layout.bottom().leading().trailing().top(equalTo: titleView.bottomAnchor)
   }
   
+  // 초기화 버튼이나 정렬 카테고리 클릭했을 때
+  private func userActionDidTap(with contentListVC: ContentListViewController?, isNeedNoti noti: Bool) {
+    
+    guard let contentListVC = contentListVC else { return logger(ErrorLog.unwrap)}
+    
+    contentListVC.backColorFlag = false
+    self.dismiss(animated: true)
+    
+    // FilterView가 이벤트를 감지하기 위한 노티
+    if noti {
+      DataManager.shared.noti.post(name: NotificationID.UserActionDidTap, object: nil)
+    }
+  }
+  
   // MARK: - Action Methods
   @objc private func initButtonDIdTap(_ sender: Any) {
     // 초기화 버튼 로직
-    if let _ = DataManager.shared.filterData[sortingName] {
-      DataManager.shared.filterData[sortingName] = nil
-    }
+    DataManager.shared.filterData[sortingName] = "0"
+    userActionDidTap(with: contentListVC, isNeedNoti: true)
+  }
+  
+  @objc private func clearViewDidTap(_ sender: UITapGestureRecognizer) {
+    // 단순 dismiss 이기에 다른 객체에 이벤트 전달하지 않는다
+    userActionDidTap(with: contentListVC, isNeedNoti: false)
   }
 }
 
@@ -116,15 +139,8 @@ extension UserActionViewController: UITableViewDataSource {
 extension UserActionViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    // 화면 내려가기
-    let contentListVC = (self.presentingViewController as! ContentListViewController)
-    contentListVC.backColorFlag = false
-    self.dismiss(animated: true)
-    
     DataManager.shared.filterData[sortingName] = sortingData[indexPath.row]
     
-    // FilterView가 이벤트를 감지하기 위한 노티
-    DataManager.shared.noti.post(name: NotificationID.UserActionDidTap, object: nil)
-    
+    userActionDidTap(with: contentListVC, isNeedNoti: true)
   }
 }

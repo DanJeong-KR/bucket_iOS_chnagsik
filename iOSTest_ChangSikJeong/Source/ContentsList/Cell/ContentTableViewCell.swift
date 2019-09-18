@@ -10,6 +10,7 @@ import UIKit
 
 class ContentTableViewCell: UITableViewCell {
   
+  // MARK: - Properties
   internal lazy var contentTextLabel: UILabel = {
     let lb = UILabel(frame: .zero)
     lb.numberOfLines = 5
@@ -32,8 +33,7 @@ class ContentTableViewCell: UITableViewCell {
     return iv
   }()
   
-  
-  
+  // MARK: - Initializers
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     fatalError(ErrorLog.coderInit)
@@ -44,23 +44,22 @@ class ContentTableViewCell: UITableViewCell {
     makeConstraint()
   }
   
-  var contentVC: ContentListViewController?
+  // MARK: - Action Methods
+  internal var contentVC: ContentListViewController?
   
   @objc private func contentViewDidTap() {
     logger("contentImageViewDidTap")
     contentVC?.selectPicture(self.contentView, self.contentImageView, self.contentTextLabel)
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-  }
-  
+  // MARK: - Layout Methods
   private func makeConstraint() {
     contentTextLabel.layout.top(constant: 10).leading(constant: 10).trailing(constant: -10)
     
     contentImageView.layout.top(equalTo: contentTextLabel.bottomAnchor, constant: 10).leading().trailing().bottom().height(equalTo: self.contentImageView.widthAnchor)
   }
   
+  // 셀 설정하는 함수
   internal func setContents(with data: Bucket) {
     self.contentTextLabel.text = data.description
     

@@ -12,7 +12,7 @@ final class BucketService: BucketServiceType {
   
   private let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
   
-  // 테스트 성공 commit
+  // 테스트 성공
   func fetchBucketData(order: String, space: String, residence: String, page: String, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
     
     var urlComponent = URLComponents(string: baseURL)
@@ -20,10 +20,9 @@ final class BucketService: BucketServiceType {
     urlComponent?.queryItems = []
     
     // 매개변수에 따라 동적으로 url을 재작성하도록
-    for (a, b) in zip(["order", "space", "residence"], [order, space, residence]) {
-      if b != "0" {
-        
-        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: DataManager.shared.convertText(b)))
+    zip(["order", "space", "residence"], [order, space, residence]).forEach {
+      if $1 != "0" {
+        urlComponent!.queryItems!.append(URLQueryItem(name: $0, value: DataManager.shared.convertText($1)))
       }
     }
     
@@ -51,7 +50,7 @@ final class BucketService: BucketServiceType {
       // JSON Parsing
       if let bucket = try? JSONDecoder().decode([Bucket].self, from: data) {
         logger("Networking is Success")
-        logger("재 정렬된 데이터가 변하지 않아서 url을 log로 남깁니다. \(url)")
+        logger("테스트 데이터는 정렬된 데이터가 제공되지 않아서 남기는 URL log \(url)")
         completionHandler(.success(bucket))
       } else {
         completionHandler(.failure(.invalidFormat))

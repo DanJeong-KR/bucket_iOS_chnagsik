@@ -10,6 +10,7 @@ import UIKit
 
 class SortingView: UIView {
   
+  // MARK: - Properties
   internal lazy var orderButton: UIButton = {
     let bt = UIButton(type: .custom)
     bt.setTitle("  정렬 ▾  ", for: .normal)
@@ -50,6 +51,7 @@ class SortingView: UIView {
     return bt
   }()
   
+  // MARK: - Initializers
   override init(frame: CGRect) {
     super.init(frame: frame)
     makeConstraints()

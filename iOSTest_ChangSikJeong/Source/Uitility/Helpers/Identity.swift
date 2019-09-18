@@ -8,6 +8,7 @@
 
 import UIKit
 
+// 버튼을 직관적으로 구별하기 위해 버튼의 이름을 id로 사용함
 enum ButtonID: Int {
   case sortingButton
   case spaceButton
@@ -28,6 +29,7 @@ extension UIControl {
   }
 }
 
+// Noti Name 오타방지
 enum NotificationID {
   static let UserActionDidTap = NSNotification.Name("UserActionDidTap")
   static let FilterCancelButtonDidTap = NSNotification.Name(rawValue: "FilterCancelButtonDidTap")
