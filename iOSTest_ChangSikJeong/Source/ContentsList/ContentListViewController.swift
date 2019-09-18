@@ -75,7 +75,7 @@ final class ContentListViewController: UIViewController {
   //MARK: - Network
   private func networkService(forScroll param: Bool) {
     let filterData = DataManager.shared.filterData
-    DataManager.shared.service.fetchBucketData(order: filterData["정렬"] ?? nil, space: filterData["공간"] ?? nil, residence: filterData["주거형태"] ?? nil, page: "1") { result in
+    DataManager.shared.service.fetchBucketData(order: filterData["정렬"] ?? "0", space: filterData["공간"] ?? "0", residence: filterData["주거형태"] ?? "0", page: "1") { result in
       
       switch result {
       case .success(let contents):
@@ -134,16 +134,9 @@ final class ContentListViewController: UIViewController {
     networkService(forScroll: false)
     
     let filterData = DataManager.shared.filterData
-    
-    print("filterData : ", filterData)
-    //FIXME: - 왜 전부 true 되는지 모르겠네 버근가
-//    sortingView.orderButton.isSelected = filterData["정렬"] != nil ? true : false
-//    sortingView.spaceButton.isSelected = filterData["공간"] != nil ? true : false
-//    sortingView.residenceButton.isSelected = DataManager.shared.filterData["주거형태"] == nil ? false : true
-    
-    print("order Button : ", sortingView.orderButton.isSelected)
-    print("space Button : ", sortingView.spaceButton.isSelected)
-    print("resi Button : ", sortingView.residenceButton.isSelected)
+    sortingView.orderButton.isSelected = filterData["정렬"] != "0" ? true : false
+    sortingView.spaceButton.isSelected = filterData["공간"] != "0" ? true : false
+    sortingView.residenceButton.isSelected = DataManager.shared.filterData["주거형태"] != "0" ? true : false
   }
   
   //MARK: - Action Methods

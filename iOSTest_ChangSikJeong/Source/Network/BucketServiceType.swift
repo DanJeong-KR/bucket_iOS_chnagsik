@@ -11,9 +11,9 @@ import Foundation
 protocol BucketServiceType {
   
   func fetchBucketData(
-    order: String?,
-    space: String?,
-    residence: String?,
+    order: String,
+    space: String,
+    residence: String,
     page: String,
     completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void
   )

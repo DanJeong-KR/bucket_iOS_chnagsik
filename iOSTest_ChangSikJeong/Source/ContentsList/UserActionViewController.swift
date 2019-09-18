@@ -126,17 +126,5 @@ extension UserActionViewController: UITableViewDelegate {
     // FilterView가 이벤트를 감지하기 위한 노티
     DataManager.shared.noti.post(name: NotificationID.UserActionDidTap, object: nil)
     
-    setButtonSelection(with: contentListVC)
-    
-  }
-  
-  private func setButtonSelection(with vc: ContentListViewController) {
-    if sortingName == "정렬" {
-      vc.sortingView.orderButton.isSelected = true
-    } else if sortingName == "공간" {
-      vc.sortingView.spaceButton.isSelected = true
-    } else {
-      vc.sortingView.residenceButton.isSelected = true
-    }
   }
 }

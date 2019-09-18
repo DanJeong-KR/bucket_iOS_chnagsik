@@ -61,11 +61,11 @@ class FilterCollectionCell: UICollectionViewCell {
     }
     
     if sortingData["정렬"]!.contains(text) {
-      DataManager.shared.filterData["정렬"] = nil
+      DataManager.shared.filterData["정렬"] = "0"
     }else if sortingData["공간"]!.contains(text) {
-      DataManager.shared.filterData["공간"] = nil
+      DataManager.shared.filterData["공간"] = "0"
     }else {
-      DataManager.shared.filterData["주거형태"] = nil
+      DataManager.shared.filterData["주거형태"] = "0"
     }
     DataManager.shared.noti.post(name: NotificationID.FilterCancelButtonDidTap, object: nil)
   }

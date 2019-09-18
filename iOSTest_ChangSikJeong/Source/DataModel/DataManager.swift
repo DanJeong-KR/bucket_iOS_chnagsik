@@ -21,15 +21,15 @@ final class DataManager {
   let sortingData: [String : [String]] = ["정렬" : ["최신순", "베스트순", "인기순"], "공간" : ["거실", "침실", "주방", "욕실"], "주거형태" : ["아파트", "빌라&연립", "단독주택", "사무공간"]]
   
   // MARK: - filter Data 부분
-  var filterData: [String: String?] = ["정렬" : nil, "공간" : nil, "주거형태" : nil]
+  var filterData: [String: String] = ["정렬" : "0", "공간" : "0", "주거형태" : "0"]
   
   var filterDataArr: [String] {
     get {
-      let dicData = DataManager.shared.filterData
+      //let dicData = DataManager.shared.filterData
       var array: [String] = []
-      for value in dicData.values {
-        if let data = value {
-          array.append(data)
+      for value in filterData.values {
+        if value != "0" {
+          array.append(value)
         }
       }
       return array.sorted()

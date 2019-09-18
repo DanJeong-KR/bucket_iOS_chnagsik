@@ -13,7 +13,7 @@ final class BucketService: BucketServiceType {
   private let baseURL = "https://s3.ap-northeast-2.amazonaws.com"
   
   // 테스트 성공 commit
-  func fetchBucketData(order: String?, space: String?, residence: String?, page: String, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
+  func fetchBucketData(order: String, space: String, residence: String, page: String, completionHandler: @escaping (Result<[Bucket], ServiceError>) -> Void) {
     
     var urlComponent = URLComponents(string: baseURL)
     urlComponent?.path = "/bucketplace-coding-test/cards/page_" + page + ".json"
@@ -21,9 +21,9 @@ final class BucketService: BucketServiceType {
     
     // 매개변수에 따라 동적으로 url을 재작성하도록
     for (a, b) in zip(["order", "space", "residence"], [order, space, residence]) {
-      if let nilTest = b {
+      if b != "0" {
         
-        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: DataManager.shared.convertText(nilTest)))
+        urlComponent!.queryItems!.append(URLQueryItem(name: a, value: DataManager.shared.convertText(b)))
       }
     }
     
