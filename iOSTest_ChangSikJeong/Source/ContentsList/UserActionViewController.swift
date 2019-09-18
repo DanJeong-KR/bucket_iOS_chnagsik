@@ -87,7 +87,12 @@ class UserActionViewController: UIViewController {
   
   // MARK: - Layout Methods
   private func makeConstraints() {
-    clearView.layout.top().leading().trailing().height(constant: 300)
+    
+    if UIDevice.current.orientation.rawValue == 1 { // 세로방향이면
+      clearView.layout.top().leading().trailing().height(constant: 300)
+    } else { // 가로
+      clearView.layout.top().leading().trailing().height(constant: 100)
+    }
     
     titleView.layout.top(equalTo: clearView.bottomAnchor).leading().trailing().height(constant: 60)
     titleLabel.layout.top(constant: 5).centerX()
