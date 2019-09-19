@@ -87,7 +87,8 @@ class UserActionViewController: UIViewController {
   
   // MARK: - Layout Methods
   private func makeConstraints() {
-    if UIDevice.current.orientation.rawValue == 1 || UIDevice.current.orientation.rawValue == 0 { // 세로방향이면
+    let deviceOri = UIDevice.current.orientation.rawValue
+    if deviceOri == 1 || deviceOri == 0 || deviceOri == 5 { // 세로방향이면
       clearView.layout.top().leading().trailing().height(constant: 300)
     } else { // 가로
       clearView.layout.top().leading().trailing().height(constant: 100)
